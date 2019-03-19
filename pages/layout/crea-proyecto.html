@@ -722,18 +722,20 @@
 
 <script>
   var clients = [
-      { "Name": "Otto Clay", "Age": 25, "Country": 1, "Address": "Ap #897-1459 Quam Avenue", "Married": false },
-      { "Name": "Connor Johnston", "Age": 45, "Country": 2, "Address": "Ap #370-4647 Dis Av.", "Married": true },
-      { "Name": "Lacey Hess", "Age": 29, "Country": 3, "Address": "Ap #365-8835 Integer St.", "Married": false },
-      { "Name": "Timothy Henson", "Age": 56, "Country": 1, "Address": "911-5143 Luctus Ave", "Married": true },
-      { "Name": "Ramona Benton", "Age": 32, "Country": 3, "Address": "Ap #614-689 Vehicula Street", "Married": false }
+      { "Productos": 1,"M2": 500, "Costo": 5000, "Tiempo": 1, "Fecha de entrega": "20-01-2019", "Fecha de devolución": "20-05-2019", "Total":  26250000 },
+      { "Productos": 3,"M2": 1200, "Costo": 15000, "Tiempo": 4, "Fecha de entrega": "20-01-2019", "Fecha de devolución": "20-05-2019", "Total":  26250000 },
+      { "Productos": 4,"M2": 300, "Costo": 52000, "Tiempo": 6, "Fecha de entrega": "20-01-2019", "Fecha de devolución": "20-05-2019", "Total":  26250000 },
+      { "Productos": 1,"M2": 400, "Costo": 5300, "Tiempo": 2, "Fecha de entrega": "20-01-2019", "Fecha de devolución": "20-05-2019", "Total":  26250000 },
+      { "Productos": 2,"M2": 1500, "Costo": 5000, "Tiempo": 3, "Fecha de entrega": "20-01-2019", "Fecha de devolución": "20-05-2019", "Total":  26250000 }
   ];
 
-  var countries = [
+  var productos = [
       { Name: "", Id: 0 },
-      { Name: "United States", Id: 1 },
-      { Name: "Canada", Id: 2 },
-      { Name: "United Kingdom", Id: 3 }
+      { Name: "Mínima", Id: 1 },
+      { Name: "Máxima", Id: 2 },
+      { Name: "Rapid Steel", Id: 3 },
+      { Name: "AS-150", Id: 4 },
+      { Name: "Alshor", Id: 5 }
   ];
 
   $("#jsGrid").jsGrid({
@@ -748,11 +750,13 @@
       data: clients,
 
       fields: [
-          { name: "Name", type: "text", width: 150, validate: "required" },
-          { name: "Age", type: "number", width: 50 },
-          { name: "Address", type: "text", width: 200 },
-          { name: "Country", type: "select", items: countries, valueField: "Id", textField: "Name" },
-          { name: "Married", type: "checkbox", title: "Is Married", sorting: false },
+          { name: "Productos", type: "select", items: productos, valueField: "Id", textField: "productos" },
+          { name: "M2", type: "number", width: 50, validate: "required" },
+          { name: "Costo", type: "number", width: 50 },
+          { name: "Tiempo", type: "number", width: 50 },
+          { name: "Fecha de entrega", type: "text", width: 80 },
+          { name: "Fecha de devolución", type: "text", width: 80 },
+          { name: "Total", type: "number", width: 50 },
           { type: "control" }
       ]
   });
