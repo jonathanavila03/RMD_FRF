@@ -1,3 +1,40 @@
+<?php
+
+error_reporting(0);
+session_start();
+
+if (isset($_SESSION['user_id'])) {
+  header('Location: ././index.php');
+}
+
+require 'database.php';
+
+$usuario = $_POST['campo_rut'];
+$pass = $_POST['campo_pass'];
+
+if(!empty($usuario) && !empty($pass)) {
+  $query = "SELECT usuario_rut, usuario_nombre, usuario_pwd FROM rmd_usuario WHERE usuario_rut = '$usuario' and usuario_pwd = '$pass' LIMIT 1 ";
+	$results = mysqli_query($conn, $query);
+	$message = '';
+
+	while ($row = mysqli_fetch_row($results)){
+
+		$valida_user = $row[1];
+		$valida_pass = $row[2];
+		$valida_id = $row[0];
+
+	}
+}
+    if (!empty($valida_id) && $usuario = $valida_user && $pass = $valida_pass ) {
+		$_SESSION['user_id'] = $valida_id;
+		header("Location: ././index.php");
+	  } else {
+		//$message = 'Lo sentimos, esas credenciales no coinciden';
+    }
+    
+
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -31,19 +68,21 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>RMD</b>FRF</a>
+    <a href="../../index.html"><b>RMD</b>FRF</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Inicia sesión</p>
-
-    <form action="../../index2.html" method="post">
+    <?php if(!empty($message)): ?>
+      				<p> <?= $message ?></p>
+		<?php endif; ?>
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <input type="text" class="form-control" name="campo_rut" placeholder="Ingresa tu RUT (sin puntos ni guión)">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Contraseña">
+        <input type="password" class="form-control" name="campo_pass" placeholder="Ingresa tu Contraseña">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
