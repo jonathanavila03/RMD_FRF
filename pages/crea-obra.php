@@ -395,19 +395,19 @@ error_reporting(0);
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="/pages/method/registroObra.php" method="POST">
                   <div class="box-body">
                     <div class="form-group">
                       <label for="inputEmail3" class="col-sm-2 control-label">N° Obra</label>
     
                       <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputEmail3" placeholder="Número">
+                        <input type="number" class="form-control" id="id" placeholder="Número" name="id">
                       </div>
                     </div>                    <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Nombre de la Obra</label>
       
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail3" placeholder="Nombre">
+                          <input type="text" class="form-control" id="nombre_obra" placeholder="Nombre" name="nombre_obra">
                         </div>
                       </div>
                   </div>
