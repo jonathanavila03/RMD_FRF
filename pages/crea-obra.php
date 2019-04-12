@@ -149,7 +149,7 @@ error_reporting(0);
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form class="form-horizontal" action="/pages/method/registroObra.php" method="POST">
+                <form class="form-horizontal" action="./../pages/method/registroObra.php" method="POST">
                   <div class="box-body">
                     <div class="form-group">
                       <label for="inputEmail3" class="col-sm-2 control-label">N° Obra</label>
