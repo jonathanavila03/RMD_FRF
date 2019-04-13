@@ -20,6 +20,8 @@ $insert_value = "insert into rmd_obra values ('$subs_obra', '$subs_name')";
 
 $retry_value = mysqli_query($conn, $insert_value);
 
+echo "<script> alert('Obra Creada Correctamente'); location.href='/pages/crea-obra.php' </script>";
+
 if (!$retry_value) {
    die('Error: ' . mysqli_error());
 }

@@ -28,6 +28,13 @@ error_reporting(0);
     session_destroy();
 
   }
+
+  $query_id_obra = "SELECT case when max(obra_id) is NULL then 1 else max(obra_id) + 1 end id_obra  FROM rmd_obra";
+  $id_obra_results = mysqli_query($conn, $query_id_obra);
+  $obra = ""; 
+  $row_obra = mysqli_fetch_row($id_obra_results);
+  $obra = $row_obra[0];
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -155,7 +162,7 @@ error_reporting(0);
                       <label for="inputEmail3" class="col-sm-2 control-label">N° Obra</label>
     
                       <div class="col-sm-10">
-                        <input type="number" class="form-control" id="id" placeholder="Número" name="id">
+                        <input type="number" class="form-control" id="id" readonly= "readonly" value= "<?php echo $obra ?>" name="id" >
                       </div>
                     </div>                    <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Nombre de la Obra</label>
