@@ -41,7 +41,7 @@ error_reporting(0);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>RMD-FRF | Crea Obra</title>
+  <title>RMD-FRF | Crea Cliente</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -96,7 +96,7 @@ error_reporting(0);
 
           </a>
         </li>
-        <li class="active treeview">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
             <span>Proyectos</span>
@@ -109,7 +109,7 @@ error_reporting(0);
             <li><a href="crea-proyecto.php"><i class="fa fa-circle-o"></i> Crear Proyecto</a></li>
           </ul>
         </li>
-        <li>
+        <li class="active">
           <a href="crea-clientes.php">
             <i class="fa fa-handshake-o"></i> <span>Crear Clientes</span>
 
@@ -140,13 +140,12 @@ error_reporting(0);
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Crea tu obra
+        Crea tu cliente
         <small>Visualiza</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li><a href="#">Proyectos</a></li>
-        <li class="active">Crear Obra</li>
+        <li class="active">Crear Clientes</li>
       </ol>
     </section>
 
@@ -156,42 +155,50 @@ error_reporting(0);
         <!-- left column -->
         <div class="col-md-6">
 
-            <div class="box box-info">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Creación de obras</h3>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Ingresa los siguientes datos</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="rut_in">Rut Cliente</label>
+                  <input type="text" class="form-control" id="rut_in" placeholder="Ingresa el rut sin puntos ni guión">
                 </div>
-                <!-- /.box-header -->
-                <!-- form start -->
-                <form class="form-horizontal" action="./../pages/method/registroObra.php" method="POST">
-                  <div class="box-body">
-                    <div class="form-group">
-                      <label for="inputEmail3" class="col-sm-2 control-label">N° Obra</label>
-    
-                      <div class="col-sm-10">
-                        <input type="number" class="form-control" id="id" readonly= "readonly" value= "<?php echo $obra ?>" name="id" >
-                      </div>
-                    </div>                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Nombre de la Obra</label>
-      
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nombre_obra" placeholder="Nombre" name="nombre_obra">
-                        </div>
-                      </div>
-                  </div>
-                  <!-- /.box-body -->
-                  <div class="box-footer">
-                    <button type="submit" class="btn btn-default">Cancelar</button>
-                    <button type="submit" class="btn btn-info pull-right">Grabar</button>
-                  </div>
-                  <!-- /.box-footer -->
-                </form>
+                <div class="form-group">
+                  <label for="name_cli_in">Nombre Cliente</label>
+                  <input type="text" class="form-control" id="name_cli_in" placeholder="ingresa el nombre completo">
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> Cliente activo?
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label>Zona del cliente</label>
+                  <select class="form-control">
+                    <option>Selecciona...</option>
+                    <option>Zona 1</option>
+                    <option>Zona 2</option>
+                    <option>Zona 3</option>
+                    <option>Zona 4</option>
+                  </select>
+                </div>
               </div>
+              <!-- /.box-body -->
 
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
         </div>
+
         <!--/.col (left) -->
         <!-- right column -->
         <!--/.col (right) -->
-      </div>
+        </div>
       <!-- /.row -->
     </section>
     <!-- /.content -->

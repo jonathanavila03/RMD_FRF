@@ -141,6 +141,12 @@ error_reporting(0);
             <li><a href="crea-proyecto.php"><i class="fa fa-circle-o"></i> Crear Proyecto</a></li>
           </ul>
         </li>
+        <li>
+          <a href="crea-clientes.php">
+            <i class="fa fa-handshake-o"></i> <span>Crear Clientes</span>
+
+          </a>
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
