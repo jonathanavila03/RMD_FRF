@@ -41,7 +41,7 @@ error_reporting(0);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>RMD-FRF | Crea Cliente</title>
+  <title>RMD-FRF | Mis Proyectos</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -65,6 +65,30 @@ error_reporting(0);
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  
+  <script>
+    
+    $(document).ready(function() {			   
+        $('#example').dataTable( {				
+            "ajax": "funciones.php",					
+                 "columns": [
+                    { "data": "idImagen" },
+                    { "data": "idUsuario" },
+                    { "data": "nombre" },
+                    { "data": "extension" },
+                    { "data": "escala" },
+                    { "data": "categoria" }
+                    ]
+            });
+        });
+
+</script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -96,7 +120,7 @@ error_reporting(0);
 
           </a>
         </li>
-        <li class="treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
             <span>Proyectos</span>
@@ -110,7 +134,7 @@ error_reporting(0);
             <li><a href="misproyectos.php"><i class="fa fa-circle-o"></i> Mis Proyectos</a></li>
           </ul>
         </li>
-        <li class="active">
+        <li>
           <a href="crea-clientes.php">
             <i class="fa fa-handshake-o"></i> <span>Crear Clientes</span>
 
@@ -141,12 +165,13 @@ error_reporting(0);
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Crea tu cliente
+        Crea tu obra
         <small>Visualiza</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Crear Clientes</li>
+        <li><a href="#">Proyectos</a></li>
+        <li class="active">Crear Obra</li>
       </ol>
     </section>
 
@@ -154,52 +179,34 @@ error_reporting(0);
     <section class="content">
       <div class="row">
         <!-- left column -->
-        <div class="col-md-6">
+        <div class="col-md-12">
 
-        <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Ingresa los siguientes datos</h3>
+            <div class="box box-info">
+                <!-- /.box-header -->
+
+                <table id="example" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>proyecto_cliente</th>
+                            <th>proyecto_fechaI</th>
+                            <th>proyecto_fechaPD</th>
+                            <th>proyecto_duracion</th>
+                            <th>proyecto_estado</th>
+                            <th>proyecto_vendedor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>  
+            	</table>
+
+                <!-- form start -->
             </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="rut_in">Rut Cliente</label>
-                  <input type="text" class="form-control" id="rut_in" placeholder="Ingresa el rut sin puntos ni guión">
-                </div>
-                <div class="form-group">
-                  <label for="name_cli_in">Nombre Cliente</label>
-                  <input type="text" class="form-control" id="name_cli_in" placeholder="ingresa el nombre completo">
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"> Cliente activo?
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label>Zona del cliente</label>
-                  <select class="form-control">
-                    <option>Selecciona...</option>
-                    <option>Zona 1</option>
-                    <option>Zona 2</option>
-                    <option>Zona 3</option>
-                    <option>Zona 4</option>
-                  </select>
-                </div>
-              </div>
-              <!-- /.box-body -->
 
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-              </div>
-            </form>
         </div>
-
         <!--/.col (left) -->
         <!-- right column -->
         <!--/.col (right) -->
-        </div>
+      </div>
       <!-- /.row -->
     </section>
     <!-- /.content -->

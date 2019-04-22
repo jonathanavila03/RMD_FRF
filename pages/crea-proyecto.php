@@ -103,6 +103,7 @@ error_reporting(0);
           <ul class="treeview-menu">
             <li><a href="crea-obra.php"><i class="fa fa-circle-o"></i> Crear Obra</a></li>
             <li><a href="crea-proyecto.php"><i class="fa fa-circle-o"></i> Crear Proyecto</a></li>
+            <li><a href="misproyectos.php"><i class="fa fa-circle-o"></i> Mis Proyectos</a></li>
           </ul>
         </li>
         <li>
