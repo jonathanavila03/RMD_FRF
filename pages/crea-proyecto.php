@@ -28,6 +28,27 @@ error_reporting(0);
     session_destroy();
 
   }
+
+  $query_id_proyecto = "SELECT case when max(proyecto_id) is NULL then 1 else max(proyecto_id) + 1 end proyecto_id  FROM rmd_proyecto";
+  $id_proyecto_results = mysqli_query($conn, $query_id_proyecto);
+  $proyecto = ""; 
+  $row_proyecto = mysqli_fetch_row($id_proyecto_results);
+  $proyecto = $row_proyecto[0];
+
+  $query_clientes = "SELECT cliente_nombre FROM rmd_cliente";
+  $clientes = mysqli_query($conn, $query_clientes);
+
+  $query_obras = "SELECT obra_descripcion FROM rmd_obra";
+  $obras = mysqli_query($conn, $query_obras);
+
+  $query_estado = "SELECT estado_descripcion FROM rmd_estado";
+  $estado = mysqli_query($conn, $query_estado);
+
+  $query_tipo = "SELECT negocio_descripcion FROM rmd_negocio";
+  $tipo = mysqli_query($conn, $query_tipo);
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -165,77 +186,106 @@ error_reporting(0);
                         <label for="inputEmail3" class="col-sm-2 control-label">N° Proyecto</label>
       
                         <div class="col-sm-10">
-                          <input type="number" class="form-control" id="inputEmail3" placeholder="Número">
+                          <input type="number" class="form-control" id="inputEmail3" readonly="readonly" value= "<?php echo $proyecto ?>">
                         </div>
                       </div>                    
                       <div class="form-group">
                           <label for="inputEmail3" class="col-sm-2 control-label">Obra a la que pertenece</label>
         
                           <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="seleccione obra">
+                          <select class="form-control" autocomplete="honorifix-prefix">
+                          <?php 
+                            while ($rows_obra = mysqli_fetch_row($obras))
+                            {
+                              ?><option><?php echo $rows_obra[0]?></option>
+                          <?php }
+                          
+                          ?>
+
+                          </select>
                           </div>
                       </div>
                       <div class="form-group">
                           <label for="inputEmail3" class="col-sm-2 control-label">Cliente</label>
         
                           <div class="col-sm-10">
-                            <input type="number" class="form-control" id="inputEmail3" placeholder="Número">
+                          <select class="form-control" autocomplete="honorifix-prefix">
+                          <?php 
+                            while ($rows = mysqli_fetch_row($clientes))
+                            {
+                              ?><option><?php echo $rows[0]?></option>
+                          <?php }
+                          
+                          ?>
+
+                          </select>
                           </div>
                         </div> 
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-2 control-label">Estado</label>
           
                             <div class="col-sm-10">
-                              <input type="number" class="form-control" id="inputEmail3" placeholder="Número">
+                            <select class="form-control" autocomplete="honorifix-prefix">
+                              <?php 
+                                while ($rows_estado = mysqli_fetch_row($estado))
+                                {
+                                  ?><option><?php echo $rows_estado[0]?></option>
+                              <?php }
+                              
+                              ?>
+
+                            </select>
                             </div>
                           </div> 
                           <div class="form-group">
                               <label for="inputEmail3" class="col-sm-2 control-label">Fecha entrega</label>
             
                               <div class="col-sm-10">
-                                <input type="number" class="form-control" id="inputEmail3" placeholder="Número">
+                                <input type="text" class="form-control" id="datepicker" placeholder="Elegir Fecha" readonly="readonly">
                               </div>
                             </div> 
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">Fecha ingreso</label>
               
                                 <div class="col-sm-10">
-                                  <input type="number" class="form-control" id="inputEmail3" placeholder="Número">
+                                  <input type="text" class="form-control" id="datepicker2" placeholder="Elegir Fecha" readonly="readonly">
                                 </div>
                               </div> 
                               <div class="form-group">
                                   <label for="inputEmail3" class="col-sm-2 control-label">Fecha Entr. 1° Despacho</label>
                 
                                   <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="inputEmail3" placeholder="Número">
+                                    <input type="text" class="form-control" id="datepicker3" placeholder="Elegir Fecha" readonly="readonly">
                                   </div>
                                 </div> 
                                 <div class="form-group">
                                     <label for="inputEmail3" class="col-sm-2 control-label">Duración</label>
                   
                                     <div class="col-sm-10">
-                                      <input type="number" class="form-control" id="inputEmail3" placeholder="Número">
+                                      <input type="number" class="form-control" id="inputEmail3" placeholder="Cantidad de Meses">
                                     </div>
                                   </div> 
-                                  <div class="form-group">
-                                      <label for="inputEmail3" class="col-sm-2 control-label">Estado</label>
-                    
-                                      <div class="col-sm-10">
-                                        <input type="number" class="form-control" id="inputEmail3" placeholder="Número">
-                                      </div>
-                                    </div> 
                                     <div class="form-group">
                                         <label for="inputEmail3" class="col-sm-2 control-label">Tipo</label>
                       
                                         <div class="col-sm-10">
-                                          <input type="number" class="form-control" id="inputEmail3" placeholder="Número">
+                                        <select class="form-control" autocomplete="honorifix-prefix">
+                                        <?php 
+                                          while ($rows_tipo = mysqli_fetch_row($tipo))
+                                          {
+                                            ?><option><?php echo $rows_tipo[0]?></option>
+                                        <?php }
+                                        
+                                        ?>
+
+                                        </select>
                                         </div>
                                       </div> 
   
                     </div>
                     <!-- /.box-body -->
                       <div class="container box">
-                      <div class="table-responsive">
+                      <div>
                       <br />
                         <div align="right">
                         <button type="button" name="add" id="add" class="btn btn-info">Agregar</button>
@@ -252,6 +302,8 @@ error_reporting(0);
                                                 <th>Fecha Entrega</th>
                                                 <th>Fecha Devolucion</th>
                                                 <th>Total</th>
+                                                <th></th>
+                                                <th></th>
                           </tr>
                         </thead>
                         </table>
@@ -493,22 +545,17 @@ error_reporting(0);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./../dist/js/demo.js"></script>
+<script>
+    $(function() {
+    $( "#datepicker" ).datepicker();
+    $( "#datepicker2" ).datepicker();
+    $( "#datepicker3" ).datepicker();
+    });
+    </script>
+
 <script type="text/javascript" language="javascript" >
  $(document).ready(function(){
-    var productos = [
-    "Minima",
-    "Maxima",
-    "Rapid Steel",
-    "AS-150",
-    "Alshor",
-    "Airodeck",
-    "Prop",
-    "Rapid Shor",
-    "Super Slim",
-    "Mega Shor",
-    "Ultraguard",
-    "Ascent"
-    ];
+
   fetch_data();
 
   function fetch_data()
@@ -520,13 +567,31 @@ error_reporting(0);
   
   $('#add').click(function(){
    var html = '<tr>';
-   html += '<td contenteditable id="data1"></td>';
+   html += '<td class="select" id="data1" readonly="readonly">';
+   html += '<select class="form-control" autocomplete="honorifix-prefix">';      
+   html += '<option value="Minima">Minima</option>';
+   html += '<option value="Maxima">Maxima</option>';
+   html += '<option value="Rapid-Steel">Rapid Steel</option>';
+   html += '<option value="AS-150">AS-150</option>';
+   html += '<option value="Alshor">Alshor</option>';
+   html += '<option value="Airodeck">Airodeck</option>';
+   html += '<option value="Prop">Prop</option>';
+   html += '<option value="Rapid-Shor">Rapid Shor</option>';
+   html += '<option value="Super-Slim">Super Slim</option>';
+   html += '<option value="Mega-Shor">Mega Shor</option>';
+   html += '<option value="Ultraguard">Ultraguard</option>';
+   html += '<option value="Ascent">Ascent</option>';
+   html += '</select>';
+   html += '</td>';
    html += '<td contenteditable id="data2"></td>';
    html += '<td contenteditable id="data3"></td>';
    html += '<td contenteditable id="data4"></td>';
-   html += '<td contenteditable id="data5"></td>';
-   html += '<td contenteditable id="data6"></td>';
-   html += '<td contenteditable id="data7"></td>';
+   html += '<td contenteditable id="date5"></td>';
+   html += '<td id="data6"></td>';
+   html += '<td id="data7"></td>';
+   html += '<td><button type="button" name="calculo" id="calculo" class="btn btn-success btn-xs">Calcular</button></td>';
+   html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Agregar</button></td>';
+
    html += '</tr>';
    $('#proyecto_data tbody').prepend(html);
   }); 
@@ -558,7 +623,7 @@ error_reporting(0);
    }
    else
    {
-    alert("Both Fields is required");
+    alert("Favor Ingresar Todos los Campos");
    }
   });
   
