@@ -35,34 +35,32 @@ error_reporting(0);
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>RMD-FRF | Crea Proyecto</title>
-  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="./../bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="./../bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
   <link rel="stylesheet" href="./../bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
   <link rel="stylesheet" href="./../dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="./../dist/css/skins/_all-skins.min.css">
-
-  <link type="text/css" rel="stylesheet" href="./../pages/layout/jsgrid/jsgrid.min.css" />
-  <link type="text/css" rel="stylesheet" href="./../pages/layout/jsgrid/jsgrid-theme.min.css" />
-  
-    
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
+  <style>
+  body
+  {
+   margin:0;
+   padding:0;
+   background-color:#f1f1f1;
+  }
+  .box
+  {
+   width:100%;
+   padding:10px;
+   background-color:#fff;
+   border:1px solid #ccc;
+   border-radius:0px;
+   margin-top:25px;
+   box-sizing:border-box;
+  }
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -235,37 +233,45 @@ error_reporting(0);
                                       </div> 
   
                     </div>
-  
-                    
-  
                     <!-- /.box-body -->
+                      <div class="container box">
+                      <div class="table-responsive">
+                      <br />
+                        <div align="right">
+                        <button type="button" name="add" id="add" class="btn btn-info">Agregar</button>
+                        </div>
+                        <br />
+                        <div id="alert_message"></div>
+                        <table id="proyecto_data" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                          <th>Producto</th>
+                                                <th>M.2</th>
+                                                <th>Costo</th>
+                                                <th>Tiempo</th>
+                                                <th>Fecha Entrega</th>
+                                                <th>Fecha Devolucion</th>
+                                                <th>Total</th>
+                          </tr>
+                        </thead>
+                        </table>
+                      </div>
+                      </div>
                     <div class="box-footer">
+                        
                       <button type="submit" class="btn btn-default">Cancelar</button>
+
                       <button type="submit" class="btn btn-info pull-right">Grabar</button>
                     </div>
                     <!-- /.box-footer -->
                   </form>
-  
-                  
-  
                 </div>
-
-                
-
           </div>
         </div>
       </div>
+      
     </section>
 
-    <section class="content">
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="box">
-                <div id="jsGrid"></div>
-            </div>
-          </div>
-        </div>
-    </section>
 
     <!-- /.content -->
   </div>
@@ -482,51 +488,81 @@ error_reporting(0);
 <script src="./../bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="./../dist/js/adminlte.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./../dist/js/demo.js"></script>
-<script type="text/javascript" src="./../pages/layout/jsgrid/jsgrid.min.js"></script>
+<script type="text/javascript" language="javascript" >
+ $(document).ready(function(){
+    var productos = [
+    "Minima",
+    "Maxima",
+    "Rapid Steel",
+    "AS-150",
+    "Alshor",
+    "Airodeck",
+    "Prop",
+    "Rapid Shor",
+    "Super Slim",
+    "Mega Shor",
+    "Ultraguard",
+    "Ascent"
+    ];
+  fetch_data();
 
-<script>
-  var clients = [
-      { "Productos": 1,"M2": 500, "Costo": 5000, "Tiempo": 1, "Fecha de entrega": "20-01-2019", "Fecha de devolución": "20-05-2019", "Total":  26250000 },
-      { "Productos": 3,"M2": 1200, "Costo": 15000, "Tiempo": 4, "Fecha de entrega": "20-01-2019", "Fecha de devolución": "20-05-2019", "Total":  26250000 },
-      { "Productos": 4,"M2": 300, "Costo": 52000, "Tiempo": 6, "Fecha de entrega": "20-01-2019", "Fecha de devolución": "20-05-2019", "Total":  26250000 },
-      { "Productos": 1,"M2": 400, "Costo": 5300, "Tiempo": 2, "Fecha de entrega": "20-01-2019", "Fecha de devolución": "20-05-2019", "Total":  26250000 },
-      { "Productos": 2,"M2": 1500, "Costo": 5000, "Tiempo": 3, "Fecha de entrega": "20-01-2019", "Fecha de devolución": "20-05-2019", "Total":  26250000 }
-  ];
+  function fetch_data()
+  {
+   var dataTable = $('#proyecto_data').DataTable({
+   });
+  }
 
-  var productos = [
-      { Name: "", Id: 0 },
-      { Name: "Mínima", Id: 1 },
-      { Name: "Máxima", Id: 2 },
-      { Name: "Rapid Steel", Id: 3 },
-      { Name: "AS-150", Id: 4 },
-      { Name: "Alshor", Id: 5 }
-  ];
-
-  $("#jsGrid").jsGrid({
-      width: "100%",
-      height: "400px",
-
-      inserting: true,
-      editing: true,
-      sorting: true,
-      paging: true,
-
-      data: clients,
-
-      fields: [
-          { name: "Productos", type: "select", items: productos, valueField: "Id", textField: "productos" },
-          { name: "M2", type: "number", width: 50, validate: "required" },
-          { name: "Costo", type: "number", width: 50 },
-          { name: "Tiempo", type: "number", width: 50 },
-          { name: "Fecha de entrega", type: "text", width: 80 },
-          { name: "Fecha de devolución", type: "text", width: 80 },
-          { name: "Total", type: "number", width: 50 },
-          { type: "control" }
-      ]
+  
+  $('#add').click(function(){
+   var html = '<tr>';
+   html += '<td contenteditable id="data1"></td>';
+   html += '<td contenteditable id="data2"></td>';
+   html += '<td contenteditable id="data3"></td>';
+   html += '<td contenteditable id="data4"></td>';
+   html += '<td contenteditable id="data5"></td>';
+   html += '<td contenteditable id="data6"></td>';
+   html += '<td contenteditable id="data7"></td>';
+   html += '</tr>';
+   $('#proyecto_data tbody').prepend(html);
+  }); 
+  
+  $(document).on('click', '#insert', function(){
+   var producto = $('#data1').text();
+   var m2 = $('#data2').text();
+   var costo = $('#data3').text();
+   var tiempo = $('#data4').text();
+   var fecha_entrega = $('#data5').text();
+   var fecha_devolucion = $('#data6').text();
+   var total = $('#data7').text();
+   if(producto != '' && costo != '')
+   {
+    $.ajax({
+     url:"insert.php",
+     method:"POST",
+     data:{first_name:first_name, last_name:last_name},
+     success:function(data)
+     {
+      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+      $('#proyecto_data').DataTable().destroy();
+      fetch_data();
+     }
+    });
+    setInterval(function(){
+     $('#alert_message').html('');
+    }, 5000);
+   }
+   else
+   {
+    alert("Both Fields is required");
+   }
   });
+  
+ });
 </script>
-
 </body>
 </html>
