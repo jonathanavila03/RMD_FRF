@@ -6805,6 +6805,9 @@ button.close {
 .visible-print-block {
   display: none !important;
 }
+.fecha_mso{
+  mso-number-format: "mm\/dd\/yyyy"
+}
 @media print {
   .visible-print-block {
     display: block !important;
