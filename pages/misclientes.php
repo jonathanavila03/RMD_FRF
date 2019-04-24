@@ -172,13 +172,13 @@ error_reporting(0);
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Mis Proyectos
+        Mis Clientes
         <small>Visualiza</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li><a href="#">Proyectos</a></li>
-        <li class="active">Mis Proyectos</li>
+        <li><a href="#">Clientes</a></li>
+        <li class="active">Mis Clientes</li>
       </ol>
     </section>
 
