@@ -134,11 +134,18 @@ error_reporting(0);
             <li><a href="misproyectos.php"><i class="fa fa-circle-o"></i> Mis Proyectos</a></li>
           </ul>
         </li>
-        <li>
-          <a href="crea-clientes.php">
-            <i class="fa fa-handshake-o"></i> <span>Crear Clientes</span>
-
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-handshake-o"></i>
+            <span>Clientes</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="crea-clientes.php"><i class="fa fa-circle-o"></i> Crear Clientes</a></li>
+            <li><a href="misclientes.php"><i class="fa fa-circle-o"></i> Mis Clientes</a></li>
+          </ul>
         </li>
         <li class="treeview">
           <a href="#">
@@ -165,13 +172,13 @@ error_reporting(0);
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Crea tu obra
+        Mis Proyectos
         <small>Visualiza</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Proyectos</a></li>
-        <li class="active">Crear Obra</li>
+        <li class="active">Mis Proyectos</li>
       </ol>
     </section>
 

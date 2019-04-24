@@ -29,25 +29,11 @@ error_reporting(0);
 
   }
 
-  $query_id_proyecto = "SELECT case when max(proyecto_id) is NULL then 1 else max(proyecto_id) + 1 end proyecto_id  FROM rmd_proyecto";
-  $id_proyecto_results = mysqli_query($conn, $query_id_proyecto);
-  $proyecto = ""; 
-  $row_proyecto = mysqli_fetch_row($id_proyecto_results);
-  $proyecto = $row_proyecto[0];
-
-  $query_clientes = "SELECT cliente_nombre FROM rmd_cliente";
-  $clientes = mysqli_query($conn, $query_clientes);
-
-  $query_obras = "SELECT obra_descripcion FROM rmd_obra";
-  $obras = mysqli_query($conn, $query_obras);
-
-  $query_estado = "SELECT estado_descripcion FROM rmd_estado";
-  $estado = mysqli_query($conn, $query_estado);
-
-  $query_tipo = "SELECT negocio_descripcion FROM rmd_negocio";
-  $tipo = mysqli_query($conn, $query_tipo);
-
-
+  $query_id_obra = "SELECT case when max(obra_id) is NULL then 1 else max(obra_id) + 1 end id_obra  FROM rmd_obra";
+  $id_obra_results = mysqli_query($conn, $query_id_obra);
+  $obra = ""; 
+  $row_obra = mysqli_fetch_row($id_obra_results);
+  $obra = $row_obra[0];
 
 ?>
 <!DOCTYPE html>
@@ -55,33 +41,54 @@ error_reporting(0);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>RMD-FRF | Crea Proyecto</title>
+  <title>RMD-FRF | Mis Proyectos</title>
+  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="./../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="./../bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
   <link rel="stylesheet" href="./../bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
   <link rel="stylesheet" href="./../dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="./../dist/css/skins/_all-skins.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
-  <style>
-  body
-  {
-   margin:0;
-   padding:0;
-   background-color:#f1f1f1;
-  }
-  .box
-  {
-   width:100%;
-   padding:10px;
-   background-color:#fff;
-   border:1px solid #ccc;
-   border-radius:0px;
-   margin-top:25px;
-   box-sizing:border-box;
-  }
-  </style>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  
+  <script>
+    
+    $(document).ready(function() {			   
+        $('#example').dataTable( {				
+            "ajax": "funciones.php",					
+                 "columns": [
+                    { "data": "idImagen" },
+                    { "data": "idUsuario" },
+                    { "data": "nombre" },
+                    { "data": "extension" },
+                    { "data": "escala" },
+                    { "data": "categoria" }
+                    ]
+            });
+        });
+
+</script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -113,7 +120,7 @@ error_reporting(0);
 
           </a>
         </li>
-        <li class="active treeview">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
             <span>Proyectos</span>
@@ -127,7 +134,7 @@ error_reporting(0);
             <li><a href="misproyectos.php"><i class="fa fa-circle-o"></i> Mis Proyectos</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-handshake-o"></i>
             <span>Clientes</span>
@@ -165,174 +172,48 @@ error_reporting(0);
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Crea tu proyecto
+        Mis Proyectos
         <small>Visualiza</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Proyectos</a></li>
-        <li class="active">Crear Proyecto</li>
+        <li class="active">Mis Proyectos</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
+        <!-- left column -->
+        <div class="col-md-12">
 
+            <div class="box box-info">
+                <!-- /.box-header -->
 
-              <div class="box-header with-border">
-                  <div class="box-header with-border">
-                    <h3 class="box-title">Creación de proyectos</h3>
-                  </div>
-                  <!-- /.box-header -->
-                  <!-- form start -->
-                  <form class="form-horizontal">
-                    <div class="box-body">
-                      <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">N° Proyecto</label>
-      
-                        <div class="col-sm-10">
-                          <input type="number" class="form-control" id="inputEmail3" readonly="readonly" value= "<?php echo $proyecto ?>">
-                        </div>
-                      </div>                    
-                      <div class="form-group">
-                          <label for="inputEmail3" class="col-sm-2 control-label">Obra a la que pertenece</label>
-        
-                          <div class="col-sm-10">
-                          <select class="form-control" autocomplete="honorifix-prefix">
-                          <?php 
-                            while ($rows_obra = mysqli_fetch_row($obras))
-                            {
-                              ?><option><?php echo $rows_obra[0]?></option>
-                          <?php }
-                          
-                          ?>
+                <table id="example" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Rut Cliente</th>
+                            <th>Nombre Cliente</th>
+                            <th>Cliente Activo</th>
+                            <th>Zona Cliente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>  
+            	</table>
 
-                          </select>
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label for="inputEmail3" class="col-sm-2 control-label">Cliente</label>
-        
-                          <div class="col-sm-10">
-                          <select class="form-control" autocomplete="honorifix-prefix">
-                          <?php 
-                            while ($rows = mysqli_fetch_row($clientes))
-                            {
-                              ?><option><?php echo $rows[0]?></option>
-                          <?php }
-                          
-                          ?>
+                <!-- form start -->
+            </div>
 
-                          </select>
-                          </div>
-                        </div> 
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Estado</label>
-          
-                            <div class="col-sm-10">
-                            <select class="form-control" autocomplete="honorifix-prefix">
-                              <?php 
-                                while ($rows_estado = mysqli_fetch_row($estado))
-                                {
-                                  ?><option><?php echo $rows_estado[0]?></option>
-                              <?php }
-                              
-                              ?>
-
-                            </select>
-                            </div>
-                          </div> 
-                          <div class="form-group">
-                              <label for="inputEmail3" class="col-sm-2 control-label">Fecha entrega</label>
-            
-                              <div class="col-sm-10">
-                                <input type="text" class="form-control" id="datepicker" placeholder="Elegir Fecha" readonly="readonly">
-                              </div>
-                            </div> 
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Fecha ingreso</label>
-              
-                                <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="datepicker2" placeholder="Elegir Fecha" readonly="readonly">
-                                </div>
-                              </div> 
-                              <div class="form-group">
-                                  <label for="inputEmail3" class="col-sm-2 control-label">Fecha Entr. 1° Despacho</label>
-                
-                                  <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="datepicker3" placeholder="Elegir Fecha" readonly="readonly">
-                                  </div>
-                                </div> 
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-2 control-label">Duración</label>
-                  
-                                    <div class="col-sm-10">
-                                      <input type="number" class="form-control" id="inputEmail3" placeholder="Cantidad de Meses">
-                                    </div>
-                                  </div> 
-                                    <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-2 control-label">Tipo</label>
-                      
-                                        <div class="col-sm-10">
-                                        <select class="form-control" autocomplete="honorifix-prefix">
-                                        <?php 
-                                          while ($rows_tipo = mysqli_fetch_row($tipo))
-                                          {
-                                            ?><option><?php echo $rows_tipo[0]?></option>
-                                        <?php }
-                                        
-                                        ?>
-
-                                        </select>
-                                        </div>
-                                      </div> 
-  
-                    </div>
-                    <!-- /.box-body -->
-                      <div class="container box">
-                      <div>
-                      <br />
-                        <div align="right">
-                        <button type="button" name="add" id="add" class="btn btn-info">Agregar</button>
-                        </div>
-                        <br />
-                        <div id="alert_message"></div>
-                        <table id="proyecto_data" class="table table-bordered table-striped">
-                        <thead>
-                          <tr>
-                          <th>Producto</th>
-                                                <th>M.2</th>
-                                                <th>Costo</th>
-                                                <th>Tiempo</th>
-                                                <th>Fecha Entrega</th>
-                                                <th>Fecha Devolucion</th>
-                                                <th>Total</th>
-                                                <th></th>
-                                                <th></th>
-                          </tr>
-                        </thead>
-                        </table>
-                      </div>
-                      </div>
-                    <div class="box-footer">
-                        
-                      <button type="submit" class="btn btn-default">Cancelar</button>
-
-                      <button type="submit" class="btn btn-info pull-right">Grabar</button>
-                    </div>
-                    <!-- /.box-footer -->
-                  </form>
-                </div>
-          </div>
         </div>
+        <!--/.col (left) -->
+        <!-- right column -->
+        <!--/.col (right) -->
       </div>
-      
+      <!-- /.row -->
     </section>
-
-
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -548,94 +429,7 @@ error_reporting(0);
 <script src="./../bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="./../dist/js/adminlte.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./../dist/js/demo.js"></script>
-<script>
-    $(function() {
-    $( "#datepicker" ).datepicker();
-    $( "#datepicker2" ).datepicker();
-    $( "#datepicker3" ).datepicker();
-    });
-    </script>
-
-<script type="text/javascript" language="javascript" >
- $(document).ready(function(){
-
-  fetch_data();
-
-  function fetch_data()
-  {
-   var dataTable = $('#proyecto_data').DataTable({
-   });
-  }
-
-  
-  $('#add').click(function(){
-   var html = '<tr>';
-   html += '<td class="select" id="data1" readonly="readonly">';
-   html += '<select class="form-control" autocomplete="honorifix-prefix">';      
-   html += '<option value="Minima">Minima</option>';
-   html += '<option value="Maxima">Maxima</option>';
-   html += '<option value="Rapid-Steel">Rapid Steel</option>';
-   html += '<option value="AS-150">AS-150</option>';
-   html += '<option value="Alshor">Alshor</option>';
-   html += '<option value="Airodeck">Airodeck</option>';
-   html += '<option value="Prop">Prop</option>';
-   html += '<option value="Rapid-Shor">Rapid Shor</option>';
-   html += '<option value="Super-Slim">Super Slim</option>';
-   html += '<option value="Mega-Shor">Mega Shor</option>';
-   html += '<option value="Ultraguard">Ultraguard</option>';
-   html += '<option value="Ascent">Ascent</option>';
-   html += '</select>';
-   html += '</td>';
-   html += '<td contenteditable id="data2"></td>';
-   html += '<td contenteditable id="data3"></td>';
-   html += '<td contenteditable id="data4"></td>';
-   html += '<td contenteditable id="date5"></td>';
-   html += '<td id="data6"></td>';
-   html += '<td id="data7"></td>';
-   html += '<td><button type="button" name="calculo" id="calculo" class="btn btn-success btn-xs">Calcular</button></td>';
-   html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Agregar</button></td>';
-
-   html += '</tr>';
-   $('#proyecto_data tbody').prepend(html);
-  }); 
-  
-  $(document).on('click', '#insert', function(){
-   var producto = $('#data1').text();
-   var m2 = $('#data2').text();
-   var costo = $('#data3').text();
-   var tiempo = $('#data4').text();
-   var fecha_entrega = $('#data5').text();
-   var fecha_devolucion = $('#data6').text();
-   var total = $('#data7').text();
-   if(producto != '' && costo != '')
-   {
-    $.ajax({
-     url:"insert.php",
-     method:"POST",
-     data:{first_name:first_name, last_name:last_name},
-     success:function(data)
-     {
-      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-      $('#proyecto_data').DataTable().destroy();
-      fetch_data();
-     }
-    });
-    setInterval(function(){
-     $('#alert_message').html('');
-    }, 5000);
-   }
-   else
-   {
-    alert("Favor Ingresar Todos los Campos");
-   }
-  });
-  
- });
-</script>
 </body>
 </html>
