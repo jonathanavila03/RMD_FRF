@@ -68,26 +68,6 @@ error_reporting(0);
 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
   
-  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-  
-  <script>
-    
-    $(document).ready(function() {			   
-        $('#example').dataTable( {				
-            "ajax": "funciones.php",					
-                 "columns": [
-                    { "data": "idImagen" },
-                    { "data": "idUsuario" },
-                    { "data": "nombre" },
-                    { "data": "extension" },
-                    { "data": "escala" },
-                    { "data": "categoria" }
-                    ]
-            });
-        });
-
-</script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -190,22 +170,22 @@ error_reporting(0);
 
             <div class="box box-info">
                 <!-- /.box-header -->
-
-                <table id="example" class="display" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>proyecto_cliente</th>
-                            <th>proyecto_fechaI</th>
-                            <th>proyecto_fechaPD</th>
-                            <th>proyecto_duracion</th>
-                            <th>proyecto_estado</th>
-                            <th>proyecto_vendedor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>  
-            	</table>
-
+                <div class="box-body">
+                  <table id="example" class="display" cellspacing="0" width="100%">
+                      <thead>
+                          <tr>
+                              <th>proyecto_cliente</th>
+                              <th>proyecto_fechaI</th>
+                              <th>proyecto_fechaPD</th>
+                              <th>proyecto_duracion</th>
+                              <th>proyecto_estado</th>
+                              <th>proyecto_vendedor</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>  
+                  </table>
+                </div>
                 <!-- form start -->
             </div>
 
@@ -433,5 +413,30 @@ error_reporting(0);
 <script src="./../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./../dist/js/demo.js"></script>
+
+<!--<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script> -->
+
+<script src="./../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="./../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+  <script type="text/javascript" language="javascript" >
+    
+    $(document).ready(function() {			   
+        $('#example').dataTable( {				
+            "ajax": "./../pages/method/funcionesProyectos.php",					
+                 "columns": [
+                    { "data": "proyecto_cliente" },
+                    { "data": "proyecto_fechaI" },
+                    { "data": "proyecto_fechaPD" },
+                    { "data": "proyecto_duracion" },
+                    { "data": "proyecto_estado" },
+                    { "data": "proyecto_vendedor" }
+                    ]
+            });
+        });
+
+</script>
+
 </body>
 </html>

@@ -41,7 +41,7 @@ error_reporting(0);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>RMD-FRF | Mis Proyectos</title>
+  <title>RMD-FRF | Mis Clientes</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -67,27 +67,9 @@ error_reporting(0);
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-  
-  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-  
-  <script>
-    
-    $(document).ready(function() {			   
-        $('#example').dataTable( {				
-            "ajax": "funciones.php",					
-                 "columns": [
-                    { "data": "idImagen" },
-                    { "data": "idUsuario" },
-                    { "data": "nombre" },
-                    { "data": "extension" },
-                    { "data": "escala" },
-                    { "data": "categoria" }
-                    ]
-            });
-        });
 
-</script>
+  
+
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -187,26 +169,26 @@ error_reporting(0);
       <div class="row">
         <!-- left column -->
         <div class="col-md-12">
-
-            <div class="box box-info">
-                <!-- /.box-header -->
-
-                <table id="example" class="display" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>Rut Cliente</th>
-                            <th>Nombre Cliente</th>
-                            <th>Cliente Activo</th>
-                            <th>Zona Cliente</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>  
-            	</table>
-
-                <!-- form start -->
+            <div class="box-header with-border">
+                <div class="box box-info">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example" class="display" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Rut Cliente</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Cliente Activo</th>
+                                    <th>Zona Cliente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>  
+                        </table>
+                    </div>
+                    <!-- form start -->
+                </div>
             </div>
-
         </div>
         <!--/.col (left) -->
         <!-- right column -->
@@ -431,5 +413,29 @@ error_reporting(0);
 <script src="./../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./../dist/js/demo.js"></script>
+  
+<!--<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script> -->
+
+<script src="./../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="./../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+  <script type="text/javascript" language="javascript" >
+    
+    $(document).ready(function() {			   
+        $('#example').dataTable( {				
+            "ajax": "./../pages/method/funcionesClientes.php",					
+                 "columns": [
+                    { "data": "Rut Cliente" },
+                    { "data": "Nombre Cliente" },
+                    { "data": "Cliente Activo" },
+                    { "data": "Zona Cliente" },
+                    ]
+            });
+        });
+
+</script>
+
+
 </body>
 </html>
