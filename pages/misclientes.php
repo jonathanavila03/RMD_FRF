@@ -41,7 +41,7 @@ error_reporting(0);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>RMD-FRF | Crea Obra</title>
+  <title>RMD-FRF | Mis Clientes</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -65,6 +65,12 @@ error_reporting(0);
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
+  
+
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -96,7 +102,7 @@ error_reporting(0);
 
           </a>
         </li>
-        <li class="active treeview">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
             <span>Proyectos</span>
@@ -107,9 +113,10 @@ error_reporting(0);
           <ul class="treeview-menu">
             <li><a href="crea-obra.php"><i class="fa fa-circle-o"></i> Crear Obra</a></li>
             <li><a href="crea-proyecto.php"><i class="fa fa-circle-o"></i> Crear Proyecto</a></li>
+            <li><a href="misproyectos.php"><i class="fa fa-circle-o"></i> Mis Proyectos</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-handshake-o"></i>
             <span>Clientes</span>
@@ -147,13 +154,13 @@ error_reporting(0);
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Crea tu obra
+        Mis Clientes
         <small>Visualiza</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li><a href="#">Proyectos</a></li>
-        <li class="active">Crear Obra</li>
+        <li><a href="#">Clientes</a></li>
+        <li class="active">Mis Clientes</li>
       </ol>
     </section>
 
@@ -161,39 +168,27 @@ error_reporting(0);
     <section class="content">
       <div class="row">
         <!-- left column -->
-        <div class="col-md-6">
-
-            <div class="box box-info">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Creación de obras</h3>
+        <div class="col-md-12">
+            <div class="box-header with-border">
+                <div class="box box-info">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example" class="display" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Rut Cliente</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Cliente Activo</th>
+                                    <th>Zona Cliente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>  
+                        </table>
+                    </div>
+                    <!-- form start -->
                 </div>
-                <!-- /.box-header -->
-                <!-- form start -->
-                <form class="form-horizontal" action="./../pages/method/registroObra.php" method="POST">
-                  <div class="box-body">
-                    <div class="form-group">
-                      <label for="inputEmail3" class="col-sm-2 control-label">N° Obra</label>
-    
-                      <div class="col-sm-10">
-                        <input type="number" class="form-control" id="id" readonly= "readonly" value= "<?php echo $obra ?>" name="id" >
-                      </div>
-                    </div>                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Nombre de la Obra</label>
-      
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nombre_obra" placeholder="Nombre" name="nombre_obra">
-                        </div>
-                      </div>
-                  </div>
-                  <!-- /.box-body -->
-                  <div class="box-footer">
-                    <button type="submit" class="btn btn-default">Cancelar</button>
-                    <button type="submit" class="btn btn-info pull-right">Grabar</button>
-                  </div>
-                  <!-- /.box-footer -->
-                </form>
-              </div>
-
+            </div>
         </div>
         <!--/.col (left) -->
         <!-- right column -->
@@ -418,5 +413,29 @@ error_reporting(0);
 <script src="./../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./../dist/js/demo.js"></script>
+  
+<!--<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script> -->
+
+<script src="./../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="./../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+  <script type="text/javascript" language="javascript" >
+    
+    $(document).ready(function() {			   
+        $('#example').dataTable( {				
+            "ajax": "./../pages/method/funcionesClientes.php",					
+                 "columns": [
+                    { "data": "Rut Cliente" },
+                    { "data": "Nombre Cliente" },
+                    { "data": "Cliente Activo" },
+                    { "data": "Zona Cliente" },
+                    ]
+            });
+        });
+
+</script>
+
+
 </body>
 </html>
