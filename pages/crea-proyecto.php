@@ -124,6 +124,7 @@ error_reporting(0);
           <ul class="treeview-menu">
             <li><a href="crea-obra.php"><i class="fa fa-circle-o"></i> Crear Obra</a></li>
             <li><a href="crea-proyecto.php"><i class="fa fa-circle-o"></i> Crear Proyecto</a></li>
+            <li><a href="misproyectos.php"><i class="fa fa-circle-o"></i> Mis Proyectos</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -193,19 +194,22 @@ error_reporting(0);
                         <label for="inputEmail3" class="col-sm-2 control-label">N° Proyecto</label>
       
                         <div class="col-sm-10">
-                          <input type="number" class="form-control" id="inputEmail3" readonly="readonly" value= "<?php echo $proyecto ?>" name="id_proyecto">
+                          <input type="number" class="form-control" id="inputEmail3" readonly="readonly" value= "<?php echo $proyecto ?>">
                         </div>
                       </div>                    
                       <div class="form-group">
                           <label for="inputEmail3" class="col-sm-2 control-label">Obra a la que pertenece</label>
         
                           <div class="col-sm-10">
-                          <select class="form-control" autocomplete="honorifix-prefix" name="obra">
+                          <select class="form-control" autocomplete="honorifix-prefix">
                           <?php 
                             while ($rows_obra = mysqli_fetch_row($obras))
                             {
                               ?><option><?php echo $rows_obra[0]?></option>
-                          <?php }  ?>
+                          <?php }
+                          
+                          ?>
+
                           </select>
                           </div>
                       </div>
@@ -213,12 +217,15 @@ error_reporting(0);
                           <label for="inputEmail3" class="col-sm-2 control-label">Cliente</label>
         
                           <div class="col-sm-10">
-                          <select class="form-control" autocomplete="honorifix-prefix" name="cliente">
+                          <select class="form-control" autocomplete="honorifix-prefix">
                           <?php 
                             while ($rows = mysqli_fetch_row($clientes))
                             {
                               ?><option><?php echo $rows[0]?></option>
-                          <?php }?>
+                          <?php }
+                          
+                          ?>
+
                           </select>
                           </div>
                         </div> 
@@ -226,12 +233,15 @@ error_reporting(0);
                             <label for="inputEmail3" class="col-sm-2 control-label">Estado</label>
           
                             <div class="col-sm-10">
-                            <select class="form-control" autocomplete="honorifix-prefix" name="estado">
+                            <select class="form-control" autocomplete="honorifix-prefix">
                               <?php 
                                 while ($rows_estado = mysqli_fetch_row($estado))
                                 {
                                   ?><option><?php echo $rows_estado[0]?></option>
-                              <?php }?>
+                              <?php }
+                              
+                              ?>
+
                             </select>
                             </div>
                           </div> 
@@ -239,40 +249,43 @@ error_reporting(0);
                               <label for="inputEmail3" class="col-sm-2 control-label">Fecha entrega</label>
             
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" id="datepicker" placeholder="Elegir Fecha" readonly="readonly" name="fecha_entrega">
+                                <input type="text" class="form-control" id="datepicker" placeholder="Elegir Fecha" readonly="readonly">
                               </div>
                             </div> 
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">Fecha ingreso</label>
               
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control"  readonly="readonly" value= "<?php echo date("d/m/Y")?>" name="fecha_ingreso">
+                                  <input type="text" class="form-control" id="datepicker2" placeholder="Elegir Fecha" readonly="readonly">
                                 </div>
                               </div> 
                               <div class="form-group">
                                   <label for="inputEmail3" class="col-sm-2 control-label">Fecha Entr. 1° Despacho</label>
                 
                                   <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="datepicker3" placeholder="Elegir Fecha" readonly="readonly" name="fecha_despacho">
+                                    <input type="text" class="form-control" id="datepicker3" placeholder="Elegir Fecha" readonly="readonly">
                                   </div>
                                 </div> 
                                 <div class="form-group">
                                     <label for="inputEmail3" class="col-sm-2 control-label">Duración</label>
                   
                                     <div class="col-sm-10">
-                                      <input type="number" class="form-control" id="duracion" name="duracion" placeholder="Cantidad de Meses">
+                                      <input type="number" class="form-control" id="inputEmail3" placeholder="Cantidad de Meses">
                                     </div>
                                   </div> 
                                     <div class="form-group">
                                         <label for="inputEmail3" class="col-sm-2 control-label">Tipo</label>
                       
                                         <div class="col-sm-10">
-                                        <select class="form-control" autocomplete="honorifix-prefix" name="estado">
+                                        <select class="form-control" autocomplete="honorifix-prefix">
                                         <?php 
                                           while ($rows_tipo = mysqli_fetch_row($tipo))
                                           {
                                             ?><option><?php echo $rows_tipo[0]?></option>
-                                        <?php }?>
+                                        <?php }
+                                        
+                                        ?>
+
                                         </select>
                                         </div>
                                       </div> 
@@ -283,7 +296,7 @@ error_reporting(0);
                       <div>
                       <br />
                         <div align="right">
-                        <button type="button" name="add" id="add" class="btn btn-info">Agregar Producto</button>
+                        <button type="button" name="add" id="add" class="btn btn-info">Agregar</button>
                         </div>
                         <br />
                         <div id="alert_message"></div>
@@ -294,8 +307,8 @@ error_reporting(0);
                                                 <th>M.2</th>
                                                 <th>Costo</th>
                                                 <th>Tiempo</th>
-                                                <th>Fecha_Entrega</th>
-                                                <th>Fecha_Devolucion</th>
+                                                <th>Fecha Entrega</th>
+                                                <th>Fecha Devolucion</th>
                                                 <th>Total</th>
                                                 <th></th>
                                                 <th></th>
@@ -540,56 +553,7 @@ error_reporting(0);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./../dist/js/demo.js"></script>
-
 <script>
-  function validarFormatoFecha(campo) {
-      var RegExPattern = /^\d{1,2}\/\d{1,2}\/\d{2,4}$/;
-      if ((campo.match(RegExPattern)) && (campo!='')) {
-            return true;
-      } else {
-            return false;
-      }
-}
-function existeFecha(fecha){
-      var fechaf = fecha.split("/");
-      var day = fechaf[0];
-      var month = fechaf[1];
-      var year = fechaf[2];
-      var date = new Date(year,month,'0');
-      if((day-0)>(date.getDate()-0)){
-            return false;
-      }
-      return true;
-}
-
-function editar_fecha(fecha, intervalo, dma, separador) {
- 
- var separador = separador || "-";
- var arrayFecha = fecha.split(separador);
- var dia = arrayFecha[0];
- var mes = arrayFecha[1];
- var anio = arrayFecha[2];  
- 
- var fechaInicial = new Date(anio, mes - 1, dia);
- var fechaFinal = fechaInicial;
- if(dma=="m" || dma=="M"){
-   fechaFinal.setMonth(fechaInicial.getMonth()+parseInt(intervalo));
- }else if(dma=="y" || dma=="Y"){
-   fechaFinal.setFullYear(fechaInicial.getFullYear()+parseInt(intervalo));
- }else if(dma=="d" || dma=="D"){
-   fechaFinal.setDate(fechaInicial.getDate()+parseInt(intervalo));
- }else{
-    return fecha;
- }
- dia = fechaFinal.getDate();
- mes = fechaFinal.getMonth() + 1;
- anio = fechaFinal.getFullYear();
-
- dia = (dia.toString().length == 1) ? "0" + dia.toString() : dia;
- mes = (mes.toString().length == 1) ? "0" + mes.toString() : mes;
-
- return dia + "/" + mes + "/" + anio;
-}
     $(function() {
     $( "#datepicker" ).datepicker();
     $( "#datepicker2" ).datepicker();
@@ -607,21 +571,6 @@ function editar_fecha(fecha, intervalo, dma, separador) {
    var dataTable = $('#proyecto_data').DataTable({
    });
   }
-
-  function sum(){
-    $("tr").each(function(){
-        var sum = parseFloat($(this).find("td:eq(1)").text()) * parseFloat($(this).find("td:eq(2)").text()) * parseFloat($(this).find("td:eq(3)").text());
-        $(this).find("td:eq(6)").text(sum);
-    })
-  }
-
-  function suma_meses(){
-    $("tr").each(function(){
-        var sum = editar_fecha($(this).find("td:eq(4)").text(), "+"+$(this).find("td:eq(3)").text(), "m", "/"); // 01-03-2017
-        $(this).find("td:eq(5)").text(sum);
-    })
-  }
-
 
   
   $('#add').click(function(){
@@ -642,9 +591,9 @@ function editar_fecha(fecha, intervalo, dma, separador) {
    html += '<option value="Ascent">Ascent</option>';
    html += '</select>';
    html += '</td>';
-   html += '<td contenteditable id="data2" type="number"></td>';
-   html += '<td contenteditable id="data3" type="number"></td>';
-   html += '<td contenteditable id="data4" type="number"></td>';
+   html += '<td contenteditable id="data2"></td>';
+   html += '<td contenteditable id="data3"></td>';
+   html += '<td contenteditable id="data4"></td>';
    html += '<td contenteditable id="date5"></td>';
    html += '<td id="data6"></td>';
    html += '<td id="data7"></td>';
@@ -652,34 +601,8 @@ function editar_fecha(fecha, intervalo, dma, separador) {
    html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Agregar</button></td>';
 
    html += '</tr>';
-  $('#proyecto_data tbody').prepend(html);
-
+   $('#proyecto_data tbody').prepend(html);
   }); 
-  $(document).on('click', '#calculo', function(){
-   var metros = $('#data2').text();
-   var costos= $('#data3').text();
-   var tiempos = $('#data4').text();
-   var fecha = $('#data5').text();
-   var meses = document.getElementById("duracion").value;
-   if(metros != '' && costos != '' && tiempos !=''){
-        sum();
-    if(existeFecha(fecha)){
-    if(tiempos <= meses)
-      {
-        suma_meses();
-      }
-    else
-      {
-        alert("Debe ingresar la duración del proyecto o el tiempo asignado al proyecto es mayor a la duración");
-      }
-   }
-   else {alert("la fecha de entrega introducida no existe");}
-   }
-   else
-    {
-      alert("Favor ingresar todos los campos editables");
-    }
-   });
   
   $(document).on('click', '#insert', function(){
    var producto = $('#data1').text();
@@ -689,15 +612,17 @@ function editar_fecha(fecha, intervalo, dma, separador) {
    var fecha_entrega = $('#data5').text();
    var fecha_devolucion = $('#data6').text();
    var total = $('#data7').text();
-   if(fecha_devolucion != '' && total != '')
+   if(producto != '' && costo != '')
    {
     $.ajax({
      url:"insert.php",
      method:"POST",
-     data:{producto:producto, m2:m2, costo:costo, tiempo:tiempo, fecha_entrega:fecha_entrega, fecha_devolucion:fecha_devolucion, total:total },
+     data:{first_name:first_name, last_name:last_name},
      success:function(data)
      {
       $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+      $('#proyecto_data').DataTable().destroy();
+      fetch_data();
      }
     });
     setInterval(function(){
@@ -706,7 +631,7 @@ function editar_fecha(fecha, intervalo, dma, separador) {
    }
    else
    {
-    alert("Favor calcular antes de ingresar producto");
+    alert("Favor Ingresar Todos los Campos");
    }
   });
   

@@ -139,6 +139,7 @@ error_reporting(0);
           <ul class="treeview-menu">
             <li><a href="crea-obra.php"><i class="fa fa-circle-o"></i> Crear Obra</a></li>
             <li><a href="crea-proyecto.php"><i class="fa fa-circle-o"></i> Crear Proyecto</a></li>
+            <li><a href="misproyectos.php"><i class="fa fa-circle-o"></i> Mis Proyectos</a></li>
           </ul>
         </li>
 
@@ -199,12 +200,12 @@ error_reporting(0);
             <div class="inner">
               <h3>150</h3>
 
-              <p>Estado A</p>
+              <p>Proyectos</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="icon ion-folder"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+            <a class="small-box-footer">Estado A &nbsp&nbsp<i class="fa fa-folder"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -214,12 +215,12 @@ error_reporting(0);
             <div class="inner">
               <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-              <p>Estado B</p>
+              <p>Proyectos</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="icon ion-folder"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+            <a class="small-box-footer">Estado B &nbsp&nbsp<i class="fa fa-folder"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -229,12 +230,12 @@ error_reporting(0);
             <div class="inner">
               <h3>44</h3>
 
-              <p>Estado C</p>
+              <p>Proyectos</p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="icon ion-folder"></i>
             </div>
-            <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+            <a class="small-box-footer">Estado C &nbsp&nbsp<i class="fa fa-folder"></i></a>
           </div>
         </div>
         <!-- ./col -->
