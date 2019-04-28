@@ -174,12 +174,13 @@ error_reporting(0);
                   <table id="example" class="display" cellspacing="0" width="100%">
                       <thead>
                           <tr>
-                              <th>proyecto_cliente</th>
-                              <th>proyecto_fechaI</th>
-                              <th>proyecto_fechaPD</th>
-                              <th>proyecto_duracion</th>
-                              <th>proyecto_estado</th>
-                              <th>proyecto_vendedor</th>
+                              <th>Cliente</th>
+                              <th>Fecha Ingreso</th>
+                              <th>Fecha PD</th>
+                              <th>Duración</th>
+                              <th>Estado</th>
+                              <th>Vendedor</th>
+                              <th>Acción</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -423,18 +424,21 @@ error_reporting(0);
   <script type="text/javascript" language="javascript" >
     
     $(document).ready(function() {			   
-        $('#example').dataTable( {				
-            "ajax": "./../pages/method/funcionesProyectos.php",					
-                 "columns": [
-                    { "data": "proyecto_cliente" },
-                    { "data": "proyecto_fechaI" },
-                    { "data": "proyecto_fechaPD" },
-                    { "data": "proyecto_duracion" },
-                    { "data": "proyecto_estado" },
-                    { "data": "proyecto_vendedor" }
-                    ]
+
+      var table = $('#example').dataTable( {				
+                    "ajax": "./../pages/method/funcionesProyectos.php",					
+                    "columns": [
+                    { "data": "Cliente" },
+                    { "data": "Fecha Ingreso" },
+                    { "data": "Fecha PD" },
+                    { "data": "Duración" },
+                    { "data": "Estado" },
+                    { "data": "Vendedor" },
+                    { "defaultContent": "<button class='ver btn btn-success btn-xs'><i class='fa fa-eye'>&nbsp&nbsp Ver</i></button>" }
+                    ],     
             });
-        });
+            
+    });
 
 </script>
 

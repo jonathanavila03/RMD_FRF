@@ -16,7 +16,7 @@
 	
 	while($row = mysqli_fetch_array($registro))
 	{
-		$tabla.='{"proyecto_cliente":"'.$row['proyecto_cliente'].'","proyecto_fechaI":"'.$row['proyecto_fechaI'].'","proyecto_fechaPD":"'.$row['proyecto_fechaPD'].'","proyecto_duracion":"'.$row['proyecto_duracion'].'","proyecto_estado":"'.$row['proyecto_estado'].'","proyecto_vendedor":"'.$row['proyecto_vendedor'].'"},';		
+		$tabla.='{"Cliente":"'.$row['proyecto_cliente'].'","Fecha Ingreso":"'.$row['proyecto_fechaI'].'","Fecha PD":"'.$row['proyecto_fechaPD'].'","Duración":"'.$row['proyecto_duracion'].'","Estado":"'.$row['proyecto_estado'].'","Vendedor":"'.$row['proyecto_vendedor'].'"},';		
 		$i++;
 	}
 	$tabla = substr($tabla,0, strlen($tabla) - 1);
