@@ -193,14 +193,14 @@ error_reporting(0);
                         <label for="inputEmail3" class="col-sm-2 control-label">N° Proyecto</label>
       
                         <div class="col-sm-10">
-                          <input type="number" class="form-control" id="inputEmail3" readonly="readonly" value= "<?php echo $proyecto ?>" name="id_proyecto">
+                          <input type="number" class="form-control" id="id_proyecto" readonly="readonly" value= "<?php echo $proyecto ?>" name="id_proyecto">
                         </div>
                       </div>                    
                       <div class="form-group">
                           <label for="inputEmail3" class="col-sm-2 control-label">Obra a la que pertenece</label>
         
                           <div class="col-sm-10">
-                          <select class="form-control" autocomplete="honorifix-prefix" name="obra">
+                          <select class="form-control" autocomplete="honorifix-prefix" name="obra" id= "obra">
                           <?php 
                             while ($rows_obra = mysqli_fetch_row($obras))
                             {
@@ -213,7 +213,7 @@ error_reporting(0);
                           <label for="inputEmail3" class="col-sm-2 control-label">Cliente</label>
         
                           <div class="col-sm-10">
-                          <select class="form-control" autocomplete="honorifix-prefix" name="cliente">
+                          <select class="form-control" autocomplete="honorifix-prefix" name="cliente" id="cliente">
                           <?php 
                             while ($rows = mysqli_fetch_row($clientes))
                             {
@@ -226,7 +226,7 @@ error_reporting(0);
                             <label for="inputEmail3" class="col-sm-2 control-label">Estado</label>
           
                             <div class="col-sm-10">
-                            <select class="form-control" autocomplete="honorifix-prefix" name="estado">
+                            <select class="form-control" autocomplete="honorifix-prefix" name="estado" id="estado">
                               <?php 
                                 while ($rows_estado = mysqli_fetch_row($estado))
                                 {
@@ -246,7 +246,7 @@ error_reporting(0);
                                 <label for="inputEmail3" class="col-sm-2 control-label">Fecha ingreso</label>
               
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control"  readonly="readonly" value= "<?php echo date("d/m/Y")?>" name="fecha_ingreso">
+                                  <input type="text" class="form-control" id ="fecha_ingreso" readonly="readonly" value= "<?php echo date("d/m/Y")?>" name="fecha_ingreso">
                                 </div>
                               </div> 
                               <div class="form-group">
@@ -267,7 +267,7 @@ error_reporting(0);
                                         <label for="inputEmail3" class="col-sm-2 control-label">Tipo</label>
                       
                                         <div class="col-sm-10">
-                                        <select class="form-control" autocomplete="honorifix-prefix" name="estado">
+                                        <select class="form-control" autocomplete="honorifix-prefix" name="tipo" id="tipo">
                                         <?php 
                                           while ($rows_tipo = mysqli_fetch_row($tipo))
                                           {
@@ -298,7 +298,6 @@ error_reporting(0);
                                                 <th>Fecha_Devolucion</th>
                                                 <th>Total</th>
                                                 <th></th>
-                                                <th></th>
                           </tr>
                         </thead>
                         </table>
@@ -308,7 +307,7 @@ error_reporting(0);
                         
                       <button type="submit" class="btn btn-default">Cancelar</button>
 
-                      <button type="submit" class="btn btn-info pull-right">Grabar</button>
+                      <button type="submit" class="btn btn-info pull-right" id="grabar">Grabar</button>
                     </div>
                     <!-- /.box-footer -->
                   </form>
@@ -649,7 +648,6 @@ function editar_fecha(fecha, intervalo, dma, separador) {
    html += '<td id="data6"></td>';
    html += '<td id="data7"></td>';
    html += '<td><button type="button" name="calculo" id="calculo" class="btn btn-success btn-xs">Calcular</button></td>';
-   html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Agregar</button></td>';
 
    html += '</tr>';
   $('#proyecto_data tbody').prepend(html);
@@ -680,36 +678,60 @@ function editar_fecha(fecha, intervalo, dma, separador) {
       alert("Favor ingresar todos los campos editables");
     }
    });
+
+
   
-  $(document).on('click', '#insert', function(){
-   var producto = $('#data1').text();
-   var m2 = $('#data2').text();
-   var costo = $('#data3').text();
-   var tiempo = $('#data4').text();
-   var fecha_entrega = $('#data5').text();
-   var fecha_devolucion = $('#data6').text();
-   var total = $('#data7').text();
-   if(fecha_devolucion != '' && total != '')
-   {
+  $(document).on('click', '#grabar', function(){
+    var id_proyecto=$("#id_proyecto").val();
+    var obra=$("#obra").val();
+    var cliente=$("#cliente").val();
+    var estado=$("#estado").val();
+    var fecha_entrega=$("#datepicker").val();
+    var fecha_ingreso=$("#fecha_ingreso").val();
+    var fecha_primer=$("#datepicker3").val();
+    var tipo=$("#tipo").val();
+
     $.ajax({
-     url:"insert.php",
-     method:"POST",
-     data:{producto:producto, m2:m2, costo:costo, tiempo:tiempo, fecha_entrega:fecha_entrega, fecha_devolucion:fecha_devolucion, total:total },
-     success:function(data)
-     {
-      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-     }
+                    url:'method/registroProyecto2.php',
+                    method:'POST',
+                    data:{
+                        id_proyecto:id_proyecto,
+                        obra:obra,
+                        cliente:cliente,
+                        estado:estado,
+                        fecha_entrega:fecha_entrega,
+                        fecha_ingreso:fecha_ingreso,
+                        fecha_primer:fecha_primer,
+                        tipo:tipo
+                    },
+                   success:function(data){
+                       alert(data);
+                   }
+                });
+
+    $('#proyecto_data tr').each(function () {
+    var producto = $(this).find('td').eq(0).html();
+    var m2 = $(this).find('td').eq(1).html();
+    var costo = $(this).find('td').eq(2).html();
+    var tiempo = $(this).find('td').eq(3).html();
+    var fecha_entrega = $(this).find('td').eq(4).html();
+    var fecha_devolucion = $(this).find('td').eq(4).html();
+    var total = $(this).find('td').eq(4).html();
+
+
+    $.ajax({
+     async: false,
+     type: "POST",
+     url: "method/registroProyecto.php",
+        data: "producto="+producto+"&m2="+m2+"&costo="+costo+"&tiempo="+tiempo+"&fecha_entrega="+fecha_entrega+"&fecha_devolucion="+fecha_devolucion+"&total="+total,
+     data: {valores:valores},
+     success: function(data) { if(data!="");}
     });
-    setInterval(function(){
-     $('#alert_message').html('');
-    }, 5000);
-   }
-   else
-   {
-    alert("Favor calcular antes de ingresar producto");
-   }
+   });
+
+
   });
-  
+
  });
 </script>
 </body>

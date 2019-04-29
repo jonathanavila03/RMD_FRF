@@ -29,6 +29,27 @@ error_reporting(0);
 
   }
 
+  $query_proyectos_a = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'A'";
+  $proyectos_a = mysqli_query($conn, $query_proyectos_a);
+
+  $query_proyectos_b = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'B'";
+  $proyectos_b = mysqli_query($conn, $query_proyectos_b);
+
+  $query_proyectos_c = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'C'";
+  $proyectos_c = mysqli_query($conn, $query_proyectos_c);
+
+  $query_proyectos_d = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'D'";
+  $proyectos_d = mysqli_query($conn, $query_proyectos_d);
+
+  $query_proyectos_e = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'E'";
+  $proyectos_e = mysqli_query($conn, $query_proyectos_e);
+
+  $query_proyectos_f = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'F'";
+  $proyectos_f = mysqli_query($conn, $query_proyectos_f);
+
+  $query_proyectos_p = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'P'";
+  $proyectos_p= mysqli_query($conn, $query_proyectos_p);
+
 ?>
 
 <!DOCTYPE html>
@@ -238,7 +259,9 @@ error_reporting(0);
           </div>
         </div>
         <!-- ./col -->
-         <!-- ./col -->
+         <!-- ./col -->+
+
+         
       </div>
       <!-- /.row -->
 
@@ -553,68 +576,70 @@ error_reporting(0);
         addItemButton: true,
         boards: [
             {
-                "id": "_todo",
+                "id": "A",
                 "title": "Estado A",
                 "class": "infos,good",
-                "dragTo": ['_working'],
                 "item": [
-                    {
-                        "id": "_test_delete",
-                        "title": "Try drag this (Look the console)",
+                  <?php while ($rows_a = mysqli_fetch_row($proyectos_a))
+                                          {  ?>   
+                   { 
+                        "id": "<?php echo $rows_a[1]?>",
+                        "title": "<?php echo $rows_a[0]?>",
                         "drag": function (el, source) {
                             console.log("START DRAG: " + el.dataset.eid);
+                            console.log(source);
                         },
                         "dragend": function (el) {
                             console.log("END DRAG: " + el.dataset.eid);
+                         
                         },
-                        "drop": function(el){
-                            console.log('DROPPED: ' + el.dataset.eid )
+                        "drop": function(el, target){
+                            console.log('DROPPED: ' + el.dataset.eid );
+                            console.log(target.parentNode.dataset.id);
+
+
+
                         }
+
+
                     },
-                    {
-                        "title": "Try Click This!",
-                        "click": function (el) {
-                            alert("click");
-                        },
-                    }
+           <?php } ?>
                 ]
             },
             {
-                "id": "_todo",
+                "id": "B",
                 "title": "Estado B",
                 "class": "infos,good",
-                "dragTo": ['_working'],
                 "item": [
-                    {
-                        "id": "_test_delete",
-                        "title": "Try drag this (Look the console)",
+                  <?php while ($rows_b = mysqli_fetch_row($proyectos_b))
+                                          {  ?>   
+                   { 
+                        "id": "<?php echo $rows_b[1]?>",
+                        "title": "<?php echo $rows_b[0]?>",
                         "drag": function (el, source) {
                             console.log("START DRAG: " + el.dataset.eid);
                         },
                         "dragend": function (el) {
+                          
                             console.log("END DRAG: " + el.dataset.eid);
                         },
                         "drop": function(el){
                             console.log('DROPPED: ' + el.dataset.eid )
                         }
                     },
-                    {
-                        "title": "Try Click This!",
-                        "click": function (el) {
-                            alert("click");
-                        },
-                    }
+           <?php } ?>                   
                 ]
             },
             {
-                "id": "_todo",
+                "id": "C",
                 "title": "Estado C",
                 "class": "infos,good",
-                "dragTo": ['_working'],
                 "item": [
-                    {
-                        "id": "_test_delete",
-                        "title": "Try drag this (Look the console)",
+                  <?php while ($rows_c = mysqli_fetch_row($proyectos_c))
+                                          {  ?>   
+                   { 
+                        "id": "<?php echo $rows_c[1]?>",
+                        "title": "<?php echo $rows_c[0]?>",
                         "drag": function (el, source) {
                             console.log("START DRAG: " + el.dataset.eid);
                         },
@@ -625,23 +650,19 @@ error_reporting(0);
                             console.log('DROPPED: ' + el.dataset.eid )
                         }
                     },
-                    {
-                        "title": "Try Click This!",
-                        "click": function (el) {
-                            alert("click");
-                        },
-                    }
+           <?php } ?>
                 ]
             },
             {
-                "id": "_todo",
+                "id": "D",
                 "title": "Estado D",
                 "class": "infos,good",
-                "dragTo": ['_working'],
                 "item": [
-                    {
-                        "id": "_test_delete",
-                        "title": "Try drag this (Look the console)",
+                  <?php while ($rows_d = mysqli_fetch_row($proyectos_d))
+                                          {  ?>   
+                   { 
+                        "id": "<?php echo $rows_d[1]?>",
+                        "title": "<?php echo $rows_d[0]?>",
                         "drag": function (el, source) {
                             console.log("START DRAG: " + el.dataset.eid);
                         },
@@ -652,23 +673,19 @@ error_reporting(0);
                             console.log('DROPPED: ' + el.dataset.eid )
                         }
                     },
-                    {
-                        "title": "Try Click This!",
-                        "click": function (el) {
-                            alert("click");
-                        },
-                    }
+           <?php } ?>
                 ]
             },
             {
-                "id": "_todo",
+                "id": "E",
                 "title": "Estado E",
                 "class": "infos,good",
-                "dragTo": ['_working'],
                 "item": [
-                    {
-                        "id": "_test_delete",
-                        "title": "Try drag this (Look the console)",
+                  <?php while ($rows_e = mysqli_fetch_row($proyectos_e))
+                                          {  ?>   
+                   { 
+                        "id": "<?php echo $rows_e[1]?>",
+                        "title": "<?php echo $rows_e[0]?>",
                         "drag": function (el, source) {
                             console.log("START DRAG: " + el.dataset.eid);
                         },
@@ -679,23 +696,19 @@ error_reporting(0);
                             console.log('DROPPED: ' + el.dataset.eid )
                         }
                     },
-                    {
-                        "title": "Try Click This!",
-                        "click": function (el) {
-                            alert("click");
-                        },
-                    }
+           <?php } ?>
                 ]
             },
             {
-                "id": "_todo",
+                "id": "F",
                 "title": "Estado F",
                 "class": "infos,good",
-                "dragTo": ['_working'],
                 "item": [
-                    {
-                        "id": "_test_delete",
-                        "title": "Try drag this (Look the console)",
+                  <?php while ($rows_f = mysqli_fetch_row($proyectos_f))
+                                          {  ?>   
+                   { 
+                        "id": "<?php echo $rows_f[1]?>",
+                        "title": "<?php echo $rows_f[0]?>",
                         "drag": function (el, source) {
                             console.log("START DRAG: " + el.dataset.eid);
                         },
@@ -706,23 +719,19 @@ error_reporting(0);
                             console.log('DROPPED: ' + el.dataset.eid )
                         }
                     },
-                    {
-                        "title": "Try Click This!",
-                        "click": function (el) {
-                            alert("click");
-                        },
-                    }
+           <?php } ?>
                 ]
             },
             {
-                "id": "_todo",
+                "id": "P",
                 "title": "PERDIDO",
                 "class": "infos,good",
-                "dragTo": ['_working'],
                 "item": [
-                    {
-                        "id": "_test_delete",
-                        "title": "Try drag this (Look the console)",
+                  <?php while ($rows_p = mysqli_fetch_row($proyectos_p))
+                                          {  ?>   
+                   { 
+                        "id": "<?php echo $rows_p[1]?>",
+                        "title": "<?php echo $rows_p[0]?>",
                         "drag": function (el, source) {
                             console.log("START DRAG: " + el.dataset.eid);
                         },
@@ -733,12 +742,7 @@ error_reporting(0);
                             console.log('DROPPED: ' + el.dataset.eid )
                         }
                     },
-                    {
-                        "title": "Try Click This!",
-                        "click": function (el) {
-                            alert("click");
-                        },
-                    }
+           <?php } ?>
                 ]
             }
         ]

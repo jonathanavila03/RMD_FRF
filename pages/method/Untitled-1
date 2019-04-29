@@ -1,0 +1,56 @@
+                            <?php $query_cambia_estado_A = "UPDATE rmd_proyecto SET proyecto_estado = '".$estado."' WHERE proyecto_id = '".$idpro."' "?>
+                             <?php mysqli_query($conn, $query_cambia_estado_A); ?>
+                                                     <?php $estpro = $_POST['estpro']; ?>
+                            <?php $idpro = $_POST['idpro']; ?>
+                            <?php $query_cambia_estado_A = "UPDATE rmd_proyecto SET proyecto_estado = '".$estpro."' WHERE proyecto_id = '".$idpro."' "?>
+                            <?php mysqli_query($conn, $query_cambia_estado_A); ?>
+
+
+                            var producto = $('#data1').text();
+   var m2 = $('#data2').text();
+   var costo = $('#data3').text();
+   var tiempo = $('#data4').text();
+   var fecha_entrega = $('#data5').text();
+   var fecha_devolucion = $('#data6').text();
+   var total = $('#data7').text();
+   if(fecha_devolucion != '' && total != '')
+   {
+    $.ajax({
+     url:"insert.php",
+     method:"POST",
+     data:{producto:producto, m2:m2, costo:costo, tiempo:tiempo, fecha_entrega:fecha_entrega, fecha_devolucion:fecha_devolucion, total:total },
+     success:function(data)
+     {
+      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
+     }
+    });
+    setInterval(function(){
+     $('#alert_message').html('');
+    }, 5000);
+   }
+   else
+   {
+    alert("Favor calcular antes de ingresar producto");
+   }
+
+
+   delimiter //
+create PROCEDURE insertaDetalle(
+    in id_proyecto int, 
+    in producto varchar(20),
+    in m2 float,
+    in costo float,
+    in tiempo float, 
+    in fecha_entrega date,
+    in fecha_devolucion date, 
+    in total float)
+    begin 
+    declare cod_producto varchar(20);
+    
+    select producto_codigo into cod_producto from rmd_producto where producto_nombre = producto;
+    
+    insert into rmd_proyectodet values (id_proyecto, cod_producto, m2, costo, tiempo, fecha_entrega, fecha_devolucion, total);
+end 
+    
+//
+    
