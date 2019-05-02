@@ -1,54 +1,36 @@
 <?php
 error_reporting(0);
-
   session_start();
-
   require 'database.php';
-
   $valida_id = $_SESSION['user_id'];
-
-
   if(isset($valida_id)) {
  
     $query = "SELECT usuario_nombre FROM rmd_usuario WHERE usuario_rut = '$valida_id' LIMIT 1";
     $results = mysqli_query($conn, $query);
-
      $user = "";
-
     if (count($results) > 0) {
       $row=mysqli_fetch_row($results);
       $user = $row[0];
       
-
     }
-
   }else{
     session_start();
     session_unset();
     session_destroy();
-
   }
-
   $query_id_proyecto = "SELECT case when max(proyecto_id) is NULL then 1 else max(proyecto_id) + 1 end proyecto_id  FROM rmd_proyecto";
   $id_proyecto_results = mysqli_query($conn, $query_id_proyecto);
   $proyecto = ""; 
   $row_proyecto = mysqli_fetch_row($id_proyecto_results);
   $proyecto = $row_proyecto[0];
-
   $query_clientes = "SELECT cliente_nombre FROM rmd_cliente";
   $clientes = mysqli_query($conn, $query_clientes);
-
   $query_obras = "SELECT obra_descripcion FROM rmd_obra";
   $obras = mysqli_query($conn, $query_obras);
-
   $query_estado = "SELECT estado_descripcion FROM rmd_estado";
   $estado = mysqli_query($conn, $query_estado);
-
   $query_tipo = "SELECT negocio_descripcion FROM rmd_negocio";
   $tipo = mysqli_query($conn, $query_tipo);
-
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -124,21 +106,13 @@ error_reporting(0);
           <ul class="treeview-menu">
             <li><a href="crea-obra.php"><i class="fa fa-circle-o"></i> Crear Obra</a></li>
             <li><a href="crea-proyecto.php"><i class="fa fa-circle-o"></i> Crear Proyecto</a></li>
-            <li><a href="misproyectos.php"><i class="fa fa-circle-o"></i> Mis Proyectos</a></li>
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-handshake-o"></i>
-            <span>Clientes</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        <li>
+          <a href="crea-clientes.php">
+            <i class="fa fa-handshake-o"></i> <span>Crear Clientes</span>
+
           </a>
-          <ul class="treeview-menu">
-            <li><a href="crea-clientes.php"><i class="fa fa-circle-o"></i> Crear Clientes</a></li>
-            <li><a href="misclientes.php"><i class="fa fa-circle-o"></i> Mis Clientes</a></li>
-          </ul>
         </li>
         <li class="treeview">
           <a href="#">
@@ -277,7 +251,7 @@ error_reporting(0);
                                     <label for="inputEmail3" class="col-sm-2 control-label">Duración</label>
                   
                                     <div class="col-sm-10">
-                                      <input type="number" class="form-control" id="duracion" placeholder="Cantidad de Meses">
+                                      <input type="number" class="form-control" id="inputEmail3" placeholder="Cantidad de Meses">
                                     </div>
                                   </div> 
                                     <div class="form-group">
@@ -318,20 +292,19 @@ error_reporting(0);
                                                 <th>Fecha_Devolucion</th>
                                                 <th>Total</th>
                                                 <th></th>
-                                                <th></th>
                           </tr>
                         </thead>
                         </table>
                       </div>
                       </div>
-                  </form>
-                  <div class="box-footer">
+                    <div class="box-footer">
                         
-                        <button type="submit" class="btn btn-default">Cancelar</button>
-  
-                        <button type="submit" class="btn btn-info pull-right" id="grabar_1" name="grabar_1">Grabar</button>
-                      </div>
-                      <!-- /.box-footer -->
+                      <button type="submit" class="btn btn-default">Cancelar</button>
+
+                      <button type="submit" class="btn btn-info pull-right" id="grabar">Grabar</button>
+                    </div>
+                    <!-- /.box-footer -->
+                  </form>
                 </div>
           </div>
         </div>
@@ -560,11 +533,6 @@ error_reporting(0);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./../dist/js/demo.js"></script>
-<script>
-function miFuncion(select_id){
-$("#valor_select").val(select_id);
-}
-</script>
 
 <script>
   function validarFormatoFecha(campo) {
@@ -613,9 +581,9 @@ function editar_fecha(fecha, intervalo, dma, separador) {
  return dia + "/" + mes + "/" + anio;
 }
     $(function() {
-    $( "#datepicker" ).datepicker({ format : "dd/mm/yyyy"});
-    $( "#datepicker2" ).datepicker({ format : "dd/mm/yyyy"});
-    $( "#datepicker3" ).datepicker({ format : "dd/mm/yyyy"});
+    $( "#datepicker" ).datepicker();
+    $( "#datepicker2" ).datepicker();
+    $( "#datepicker3" ).datepicker();
     });
     </script>
 
@@ -639,12 +607,11 @@ function editar_fecha(fecha, intervalo, dma, separador) {
         $(this).find("td:eq(5)").text(sum);
     })
   }
-  var count = 1;
+  
   $('#add').click(function(){
-    count = count +1;
-   var html = "<tr id='row"+count+"'>";
-   html += '<td id="data1" readonly="readonly" class="producto">';
-   html += '<select  autocomplete="honorifix-prefix">';      
+   var html = '<tr>';
+   html += '<td class="select" id="data1" readonly="readonly">';
+   html += '<select class="form-control" autocomplete="honorifix-prefix">';      
    html += '<option value="Minima">Minima</option>';
    html += '<option value="Maxima">Maxima</option>';
    html += '<option value="Rapid-Steel">Rapid Steel</option>';
@@ -659,14 +626,13 @@ function editar_fecha(fecha, intervalo, dma, separador) {
    html += '<option value="Ascent">Ascent</option>';
    html += '</select>';
    html += '</td>';
-   html += '<td contenteditable id="data2" class="m2" type="number"></td>';
-   html += '<td contenteditable id="data3" class="costo" type="number"></td>';
-   html += '<td contenteditable id="data4" class="tiempo" type="number"></td>';
-   html += '<td contenteditable id="date5" class="fecha_entrega"></td>';
-   html += '<td id="data6" class="fecha_devolucion"></td>';
-   html += '<td id="data7" class="total"></td>';
+   html += '<td contenteditable id="data2" type="number"></td>';
+   html += '<td contenteditable id="data3" type="number"></td>';
+   html += '<td contenteditable id="data4" type="number"></td>';
+   html += '<td contenteditable id="date5"></td>';
+   html += '<td id="data6"></td>';
+   html += '<td id="data7"></td>';
    html += '<td><button type="button" name="calculo" id="calculo" class="btn btn-success btn-xs">Calcular</button></td>';
-   html += "<td><button type='button' name='remove' data-row='row"+count+"' class='btn btn-danger btn-xs remove'>X</button></td>"; 
    html += '</tr>';
   $('#proyecto_data tbody').prepend(html);
   }); 
@@ -695,12 +661,7 @@ function editar_fecha(fecha, intervalo, dma, separador) {
       alert("Favor ingresar todos los campos editables");
     }
    });
-
-$(document).on('click', '.remove', function(){
-  var delete_row = $(this).data("row");
-  $('#' + delete_row).remove();
- });
-   $(document).on('click', '#grabar_1', function(){
+   $(document).on('click', '#grabar', function(){
     var id_proyecto=$("#id_proyecto").val();
     var obra=$("#obra").val();
     var cliente=$("#cliente").val();
@@ -732,56 +693,32 @@ $(document).on('click', '.remove', function(){
                    success:function(data){
                        alert(data);
                    }
-                   
-                });
-                var producto = [];
-                var m2 = [];
-                var costo = [];
-                var tiempo = [];
-                var fecha_entrega = [];
-                var fecha_devolucion = [];
-                var total = [];
-                $('.producto').each(function(){
-                producto.push($(this).find("select").val());
-                });
-                $('.m2').each(function(){
-                m2.push($(this).text());
-                });
-                $('.costo').each(function(){
-                costo.push($(this).text());
-                });
-                $('.tiempo').each(function(){
-                tiempo.push($(this).text());
-                });
-                $('.fecha_entrega').each(function(){
-                fecha_entrega.push($(this).text());
-                });
-                $('.fecha_devolucion').each(function(){
-                fecha_devolucion.push($(this).text());
-                });
-                $('.total').each(function(){
-                total.push($(this).text());
-                });
-                $.ajax({
-                url:"method/registroProyecto.php",
-                method:"POST",
-                data:{id_proyecto:id_proyecto, producto:producto, m2:m2, costo:costo, tiempo:tiempo, fecha_entrega:fecha_entrega, fecha_devolucion:fecha_devolucion, total:total},
-                success:function(data){
-                  alert(data);
-                  $("td[contentEditable='true']").text("");
-                  for(var i=2; i<= count; i++)
-                  {
-                  $('tr#'+i+'').remove();
-                  }
-                }
                 });
 
-                location.reload();
+    $('#proyecto_data tr').each(function () {
+    var producto = $(this).find('td').eq(0).html();
+    var m2 = $(this).find('td').eq(1).html();
+    var costo = $(this).find('td').eq(2).html();
+    var tiempo = $(this).find('td').eq(3).html();
+    var fecha_entrega = $(this).find('td').eq(4).html();
+    var fecha_devolucion = $(this).find('td').eq(4).html();
+    var total = $(this).find('td').eq(4).html();
+
+
+    $.ajax({
+     async: false,
+     type: "POST",
+     url: "method/registroProyecto.php",
+        data: "producto="+producto+"&m2="+m2+"&costo="+costo+"&tiempo="+tiempo+"&fecha_entrega="+fecha_entrega+"&fecha_devolucion="+fecha_devolucion+"&total="+total,
+     data: {valores:valores},
+     success: function(data) { if(data!="");}
+    });
+   });
+
 
   });
-
-  });
-
+  
+ });
 </script>
 </body>
 </html>

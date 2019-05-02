@@ -53,4 +53,36 @@ create PROCEDURE insertaDetalle(
 end 
     
 //
+
+
+ delimiter // 
+create procedure InsertarEncabezado(
+    in id_proyecto int,
+    in obra varchar(200),
+    in cliente varchar(20),
+    in estado varchar(50),
+    in fecha_entrega date,
+    in fecha_ingreso date,
+    in fecha_primer date, 
+    in tipo varchar(30),
+    in vendedor varchar(200),
+    in nombre_proyecto varchar(255))
+    as
+    begin 
     
+    DECLARE rut_cliente varchar(15);
+	DECLARE cod_estado int;
+    DECLARE cod_obra int;
+    DECLARE rut_vendedor varchar(15); 
+    
+    select cliente_rut into rut_cliente from rmd_cliente where cliente_nombre = cliente LIMIT 1;
+    select estado_id into cod_estado from rmd_estado where estado_descripcion = estado LIMIT 1; 
+    select obra_id into cod_obra from rmd_obra where obra_descripcion = obra LIMIT 1; 
+    select usuario_rut into rut_vendedor from rmd_usuario  where usuario_nombre = vendedor LIMIT 1;
+    
+    INSERT INTO rmd_proyecto values (proyecto_id, rut_cliente, fecha_ingreso, fecha_entrega, fecha_primer, 
+    
+    
+    end 
+    
+    //   

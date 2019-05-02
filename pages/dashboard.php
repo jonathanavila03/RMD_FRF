@@ -29,26 +29,47 @@ error_reporting(0);
 
   }
 
-  $query_proyectos_a = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'A'";
+  $query_proyectos_a = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = '1'";
   $proyectos_a = mysqli_query($conn, $query_proyectos_a);
 
-  $query_proyectos_b = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'B'";
+  $query_proyectos_b = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = '2'";
   $proyectos_b = mysqli_query($conn, $query_proyectos_b);
 
-  $query_proyectos_c = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'C'";
+  $query_proyectos_c = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = '3'";
   $proyectos_c = mysqli_query($conn, $query_proyectos_c);
 
-  $query_proyectos_d = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'D'";
+  $query_proyectos_d = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = '4'";
   $proyectos_d = mysqli_query($conn, $query_proyectos_d);
 
-  $query_proyectos_e = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'E'";
+  $query_proyectos_e = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = '5'";
   $proyectos_e = mysqli_query($conn, $query_proyectos_e);
 
-  $query_proyectos_f = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'F'";
+  $query_proyectos_f = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = '6'";
   $proyectos_f = mysqli_query($conn, $query_proyectos_f);
 
-  $query_proyectos_p = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = 'P'";
+  $query_proyectos_p = "SELECT proyecto_nombre, proyecto_id FROM rmd_proyecto WHERE proyecto_estado = '7'";
   $proyectos_p= mysqli_query($conn, $query_proyectos_p);
+
+  $query_suma_a = "SELECT case when count(proyecto_id) is NULL then 0 else count(proyecto_id) end as suma_a from rmd_proyecto where proyecto_estado = 1";
+  $suma_a_results = mysqli_query($conn, $query_suma_a);
+  $suma_a = ""; 
+  $suma_a_row = mysqli_fetch_row($suma_a_results);
+  $suma_a = $suma_a_row[0];
+
+  $query_suma_b = "SELECT case when count(proyecto_id) is NULL then 0 else count(proyecto_id) end  as suma_b from rmd_proyecto where proyecto_estado = 2";
+  $suma_b_results = mysqli_query($conn, $query_suma_b);
+  $suma_b = ""; 
+  $suma_b_row = mysqli_fetch_row($suma_b_results);
+  $suma_b = $suma_b_row[0];
+
+  $query_suma_c = "SELECT case when count(proyecto_id) is NULL then 0 else count(proyecto_id) end as suma_c from rmd_proyecto where proyecto_estado = 3";
+  $suma_c_results = mysqli_query($conn, $query_suma_c);
+  $suma_c = ""; 
+  $suma_c_row = mysqli_fetch_row($suma_c_results);
+  $suma_c = $suma_c_row[0];
+
+
+
 
 ?>
 
@@ -219,7 +240,7 @@ error_reporting(0);
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              <h3><?php echo $suma_a?></h3>
 
               <p>Proyectos</p>
             </div>
@@ -234,7 +255,7 @@ error_reporting(0);
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3><?php echo $suma_b?><sup style="font-size: 20px"></sup></h3>
 
               <p>Proyectos</p>
             </div>
@@ -249,7 +270,7 @@ error_reporting(0);
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3><?php echo $suma_c?></h3>
 
               <p>Proyectos</p>
             </div>
@@ -556,6 +577,8 @@ error_reporting(0);
         buttonClick: function (el, boardId) {
             console.log(el);
             console.log(boardId);
+            var idpro;
+            var estadopro
             // create a form to enter element 
             var formItem = document.createElement('form');
             formItem.setAttribute("class", "itemform");
@@ -577,7 +600,7 @@ error_reporting(0);
         addItemButton: true,
         boards: [
             {
-                "id": "A",
+                "id": "1",
                 "title": "Estado A",
                 "class": "infos,good",
                 "item": [
@@ -597,9 +620,15 @@ error_reporting(0);
                         "drop": function(el, target){
                             console.log('DROPPED: ' + el.dataset.eid );
                             console.log(target.parentNode.dataset.id);
-
-
-
+                            idpro = el.dataset.eid;
+                            estadopro = target.parentNode.dataset.id;
+                            $.ajax({
+                            url:"method/cambiaEstado.php",
+                            method:"POST",
+                            data:{idpro:idpro, estadopro:estadopro},
+                            success:function(data){
+                            }
+                            });
                         }
 
 
@@ -608,7 +637,7 @@ error_reporting(0);
                 ]
             },
             {
-                "id": "B",
+                "id": "2",
                 "title": "Estado B",
                 "class": "infos,good",
                 "item": [
@@ -624,15 +653,25 @@ error_reporting(0);
                           
                             console.log("END DRAG: " + el.dataset.eid);
                         },
-                        "drop": function(el){
-                            console.log('DROPPED: ' + el.dataset.eid )
+                        "drop": function(el, target){
+                            console.log('DROPPED: ' + el.dataset.eid );
+                            console.log(target.parentNode.dataset.id);
+                            idpro = el.dataset.eid;
+                            estadopro = target.parentNode.dataset.id;
+                            $.ajax({
+                            url:"method/cambiaEstado.php",
+                            method:"POST",
+                            data:{idpro:idpro, estadopro:estadopro},
+                            success:function(data){
+                            }
+                            });
                         }
                     },
            <?php } ?>                   
                 ]
             },
             {
-                "id": "C",
+                "id": "3",
                 "title": "Estado C",
                 "class": "infos,good",
                 "item": [
@@ -647,15 +686,25 @@ error_reporting(0);
                         "dragend": function (el) {
                             console.log("END DRAG: " + el.dataset.eid);
                         },
-                        "drop": function(el){
-                            console.log('DROPPED: ' + el.dataset.eid )
+                        "drop": function(el, target){
+                            console.log('DROPPED: ' + el.dataset.eid );
+                            console.log(target.parentNode.dataset.id);
+                            idpro = el.dataset.eid;
+                            estadopro = target.parentNode.dataset.id;
+                            $.ajax({
+                            url:"method/cambiaEstado.php",
+                            method:"POST",
+                            data:{idpro:idpro, estadopro:estadopro},
+                            success:function(data){
+                            }
+                            });
                         }
                     },
            <?php } ?>
                 ]
             },
             {
-                "id": "D",
+                "id": "4",
                 "title": "Estado D",
                 "class": "infos,good",
                 "item": [
@@ -670,15 +719,25 @@ error_reporting(0);
                         "dragend": function (el) {
                             console.log("END DRAG: " + el.dataset.eid);
                         },
-                        "drop": function(el){
-                            console.log('DROPPED: ' + el.dataset.eid )
+                        "drop": function(el, target){
+                            console.log('DROPPED: ' + el.dataset.eid );
+                            console.log(target.parentNode.dataset.id);
+                            idpro = el.dataset.eid;
+                            estadopro = target.parentNode.dataset.id;
+                            $.ajax({
+                            url:"method/cambiaEstado.php",
+                            method:"POST",
+                            data:{idpro:idpro, estadopro:estadopro},
+                            success:function(data){
+                            }
+                            });
                         }
                     },
            <?php } ?>
                 ]
             },
             {
-                "id": "E",
+                "id": "5",
                 "title": "Estado E",
                 "class": "infos,good",
                 "item": [
@@ -693,15 +752,25 @@ error_reporting(0);
                         "dragend": function (el) {
                             console.log("END DRAG: " + el.dataset.eid);
                         },
-                        "drop": function(el){
-                            console.log('DROPPED: ' + el.dataset.eid )
+                        "drop": function(el, target){
+                            console.log('DROPPED: ' + el.dataset.eid );
+                            console.log(target.parentNode.dataset.id);
+                            idpro = el.dataset.eid;
+                            estadopro = target.parentNode.dataset.id;
+                            $.ajax({
+                            url:"method/cambiaEstado.php",
+                            method:"POST",
+                            data:{idpro:idpro, estadopro:estadopro},
+                            success:function(data){
+                            }
+                            });
                         }
                     },
            <?php } ?>
                 ]
             },
             {
-                "id": "F",
+                "id": "6",
                 "title": "Estado F",
                 "class": "infos,good",
                 "item": [
@@ -716,15 +785,25 @@ error_reporting(0);
                         "dragend": function (el) {
                             console.log("END DRAG: " + el.dataset.eid);
                         },
-                        "drop": function(el){
-                            console.log('DROPPED: ' + el.dataset.eid )
+                        "drop": function(el, target){
+                            console.log('DROPPED: ' + el.dataset.eid );
+                            console.log(target.parentNode.dataset.id);
+                            idpro = el.dataset.eid;
+                            estadopro = target.parentNode.dataset.id;
+                            $.ajax({
+                            url:"method/cambiaEstado.php",
+                            method:"POST",
+                            data:{idpro:idpro, estadopro:estadopro},
+                            success:function(data){
+                            }
+                            });
                         }
                     },
            <?php } ?>
                 ]
             },
             {
-                "id": "P",
+                "id": "7",
                 "title": "PERDIDO",
                 "class": "infos,good",
                 "item": [
@@ -739,8 +818,18 @@ error_reporting(0);
                         "dragend": function (el) {
                             console.log("END DRAG: " + el.dataset.eid);
                         },
-                        "drop": function(el){
-                            console.log('DROPPED: ' + el.dataset.eid )
+                        "drop": function(el, target){
+                            console.log('DROPPED: ' + el.dataset.eid );
+                            console.log(target.parentNode.dataset.id);
+                            idpro = el.dataset.eid;
+                            estadopro = target.parentNode.dataset.id;
+                            $.ajax({
+                            url:"method/cambiaEstado.php",
+                            method:"POST",
+                            data:{idpro:idpro, estadopro:estadopro},
+                            success:function(data){
+                            }
+                            });
                         }
                     },
            <?php } ?>
