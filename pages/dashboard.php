@@ -249,7 +249,7 @@ error_reporting(0);
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3>45</h3>
 
               <p>Proyectos</p>
             </div>
@@ -260,7 +260,7 @@ error_reporting(0);
           </div>
         </div>
         <!-- ./col -->
-         <!-- ./col -->+
+         <!-- ./col -->
 
          
       </div>

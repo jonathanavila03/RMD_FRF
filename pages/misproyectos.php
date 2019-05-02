@@ -190,6 +190,25 @@ error_reporting(0);
                 <!-- form start -->
             </div>
 
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h4 class="modal-title">Modal with Dynamic Content</h4>
+                        </div>
+                        <div class="modal-body">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <!--/.col (left) -->
         <!-- right column -->
@@ -434,10 +453,16 @@ error_reporting(0);
                     { "data": "Duración" },
                     { "data": "Estado" },
                     { "data": "Vendedor" },
-                    { "defaultContent": "<button class='ver btn btn-success btn-xs'><i class='fa fa-eye'>&nbsp&nbsp Ver</i></button>" }
+                    { "defaultContent": "<button class='btn btn-success openBtn'><i class='fa fa-eye'>&nbsp&nbsp Ver</i></button>" }
                     ],     
             });
             
+    });
+
+    $('.openBtn').on('click',function(){
+      $('.modal-body').load('getContent.php?id=2',function(){
+        $('#myModal').modal({show:true});
+      });
     });
 
 </script>
