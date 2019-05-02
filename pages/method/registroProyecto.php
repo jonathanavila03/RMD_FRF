@@ -12,7 +12,6 @@
     $query = '';
     for($count = 0; $count<count($total); $count++)
     {
-     $id_proyecto_clean = mysqli_real_escape_string($conn, $id_proyecto[$count]);
      $producto_clean = mysqli_real_escape_string($conn, $producto[$count]);
      $m2_clean = mysqli_real_escape_string($conn, $m2[$count]);
      $costo_clean = mysqli_real_escape_string($conn, $costo[$count]);
@@ -20,7 +19,7 @@
      $fecha_entrega_clean = mysqli_real_escape_string($conn, $fecha_entrega[$count]);
      $fecha_devolucion_clean = mysqli_real_escape_string($conn, $fecha_devolucion[$count]);
      $total_clean = mysqli_real_escape_string($conn, $total[$count]);
-     if($id_proyecto_clean != '' && $total_clean != '' )
+     if($id_proyecto!= '' && $total_clean != '' )
      {
         $date1 = str_replace('/', '-', $fecha_entrega_clean );
         $newDate1 = date("Y-m-d", strtotime($date1));
@@ -28,7 +27,7 @@
         $date2 = str_replace('/', '-', $fecha_devolucion_clean );
         $newDate2 = date("Y-m-d", strtotime($date2));
 
-      $query .= "CALL insertaDetalle('$id_proyecto_clean','$producto_clean', $m2_clean, $costo_clean, $tiempo_clean, '$newDate1', '$newDate2', $total_clean); ";
+      $query .= "CALL insertaDetalle('$id_proyecto','$producto_clean', $m2_clean, $costo_clean, $tiempo_clean, '$newDate1', '$newDate2', $total_clean); ";
      }
     }
     if($query != '')
