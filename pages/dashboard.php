@@ -281,7 +281,7 @@ error_reporting(0);
           </div>
         </div>
         <!-- ./col -->
-         <!-- ./col -->+
+         <!-- ./col -->
 
          
       </div>
