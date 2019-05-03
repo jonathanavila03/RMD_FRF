@@ -450,17 +450,19 @@ error_reporting(0);
                     { "data": "Duración" },
                     { "data": "Estado" },
                     { "data": "Vendedor" },
-                    { "defaultContent": "<button class='btn btn-success openBtn'><i class='fa fa-eye'>&nbsp&nbsp Ver</i></button>" }
+                    { "defaultContent": "<button class='btn btn-success openBtn' id='openBtn'><i class='fa fa-eye'>&nbsp&nbsp Ver</i></button>" }
                     ],     
             });
+
+            $(document).on('click', '#openBtn', function(){
+
+              $('.modal-body').load('getContent.php?id=2',function(){    
+                $('#myModal').modal('show'); 
+      });
+    });
             
     });
 
-    $('.openBtn').on('click',function(){
-      $('.modal-body').load('getContent.php?id=2',function(){
-        $('#myModal').modal({show:true});
-      });
-    });
 
 </script>
 
