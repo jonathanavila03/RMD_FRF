@@ -1,88 +1,28 @@
-                            <?php $query_cambia_estado_A = "UPDATE rmd_proyecto SET proyecto_estado = '".$estado."' WHERE proyecto_id = '".$idpro."' "?>
-                             <?php mysqli_query($conn, $query_cambia_estado_A); ?>
-                                                     <?php $estpro = $_POST['estpro']; ?>
-                            <?php $idpro = $_POST['idpro']; ?>
-                            <?php $query_cambia_estado_A = "UPDATE rmd_proyecto SET proyecto_estado = '".$estpro."' WHERE proyecto_id = '".$idpro."' "?>
-                            <?php mysqli_query($conn, $query_cambia_estado_A); ?>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-                            var producto = $('#data1').text();
-   var m2 = $('#data2').text();
-   var costo = $('#data3').text();
-   var tiempo = $('#data4').text();
-   var fecha_entrega = $('#data5').text();
-   var fecha_devolucion = $('#data6').text();
-   var total = $('#data7').text();
-   if(fecha_devolucion != '' && total != '')
-   {
-    $.ajax({
-     url:"insert.php",
-     method:"POST",
-     data:{producto:producto, m2:m2, costo:costo, tiempo:tiempo, fecha_entrega:fecha_entrega, fecha_devolucion:fecha_devolucion, total:total },
-     success:function(data)
-     {
-      $('#alert_message').html('<div class="alert alert-success">'+data+'</div>');
-     }
-    });
-    setInterval(function(){
-     $('#alert_message').html('');
-    }, 5000);
-   }
-   else
-   {
-    alert("Favor calcular antes de ingresar producto");
-   }
+<div class="text-center">
+                <a href="#myModal" class="trigger-btn" data-toggle="modal">Click to Open Login Modal</a>
+            </div>   
 
-
-   delimiter //
-create PROCEDURE insertaDetalle(
-    in id_proyecto int, 
-    in producto varchar(20),
-    in m2 float,
-    in costo float,
-    in tiempo float, 
-    in fecha_entrega date,
-    in fecha_devolucion date, 
-    in total float)
-    begin 
-    declare cod_producto varchar(20);
-    
-    select producto_codigo into cod_producto from rmd_producto where producto_nombre = producto;
-    
-    insert into rmd_proyectodet values (id_proyecto, cod_producto, m2, costo, tiempo, fecha_entrega, fecha_devolucion, total);
-end 
-    
-//
-
-
- delimiter // 
-create procedure InsertarEncabezado(
-    in id_proyecto int,
-    in obra varchar(200),
-    in cliente varchar(20),
-    in estado varchar(50),
-    in fecha_entrega date,
-    in fecha_ingreso date,
-    in fecha_primer date, 
-    in tipo varchar(30),
-    in vendedor varchar(200),
-    in nombre_proyecto varchar(255))
-    as
-    begin 
-    
-    DECLARE rut_cliente varchar(15);
-	DECLARE cod_estado int;
-    DECLARE cod_obra int;
-    DECLARE rut_vendedor varchar(15); 
-    
-    select cliente_rut into rut_cliente from rmd_cliente where cliente_nombre = cliente LIMIT 1;
-    select estado_id into cod_estado from rmd_estado where estado_descripcion = estado LIMIT 1; 
-    select obra_id into cod_obra from rmd_obra where obra_descripcion = obra LIMIT 1; 
-    select usuario_rut into rut_vendedor from rmd_usuario  where usuario_nombre = vendedor LIMIT 1;
-    
-    INSERT INTO rmd_proyecto values (proyecto_id, rut_cliente, fecha_ingreso, fecha_entrega, fecha_primer, 
-    
-    
-    end 
-    
-    //   
+        <!-- Modal HTML -->
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog modal-login">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Alerta Prosud</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Metas Línea Blanca y Cuidado Personal</h3>
+                        <p>Debido a un problema sistémico se cargaron por error metas para estas líneas, estas fueron eliminadas, favor no considerar.</p>
+                        <p>Las metas correctas de estas líneas serán cargadas el día martes, ante cualquier duda, enviar correo a desarrollo@prosud.cl</p>
+                        <p>Área de Desarrollo TI Prosud.</p>
+                    </div>
+                    <div class="modal-footer">Don't have an account? <a href="#">Create one</a></div>
+                </div>
+            </div>
+        </div>

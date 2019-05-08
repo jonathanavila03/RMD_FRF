@@ -35,6 +35,9 @@ error_reporting(0);
   $row_obra = mysqli_fetch_row($id_obra_results);
   $obra = $row_obra[0];
 
+  $query_zona = "SELECT xona_desc FROM rmd_zona";
+  $zona = mysqli_query($conn, $query_zona);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -166,7 +169,7 @@ error_reporting(0);
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form">
+            <form >
               <div class="box-body">
                 <div class="form-group">
                   <label for="rut_in">Rut Cliente</label>
@@ -178,24 +181,27 @@ error_reporting(0);
                 </div>
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox"> Cliente activo?
+                    <input type="checkbox" id="activo"> Cliente activo?
                   </label>
                 </div>
                 <div class="form-group">
                   <label>Zona del cliente</label>
-                  <select class="form-control">
+                  <select class="form-control" id="zona">
                     <option>Selecciona...</option>
-                    <option>Zona 1</option>
-                    <option>Zona 2</option>
-                    <option>Zona 3</option>
-                    <option>Zona 4</option>
+                    <?php 
+                                          while ($rows_zona = mysqli_fetch_row($zona))
+                                          {
+                                            ?><option><?php echo $rows_zona[0]?></option>
+                                        <?php }
+                                        
+                                        ?>
                   </select>
                 </div>
               </div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" id="grabar_cliente" class="btn btn-primary">Guardar</button>
               </div>
             </form>
         </div>
@@ -423,5 +429,114 @@ error_reporting(0);
 <script src="./../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./../dist/js/demo.js"></script>
+<script> 
+
+$(document).ready(function(){	});
+
+function Valida_Rut( Objeto )
+{
+	var tmpstr = "";
+	var intlargo = Objeto.value
+	if (intlargo.length> 0)
+	{
+		crut = Objeto.value
+		largo = crut.length;
+		if ( largo <2 )
+		{
+			alert('rut inválido')
+			Objeto.focus()
+			return false;
+		}
+		for ( i=0; i <crut.length ; i++ )
+		if ( crut.charAt(i) != ' ' && crut.charAt(i) != '.' && crut.charAt(i) != '-' )
+		{
+			tmpstr = tmpstr + crut.charAt(i);
+		}
+		rut = tmpstr;
+		crut=tmpstr;
+		largo = crut.length;
+ 
+		if ( largo> 2 )
+			rut = crut.substring(0, largo - 1);
+		else
+			rut = crut.charAt(0);
+ 
+		dv = crut.charAt(largo-1);
+ 
+		if ( rut == null || dv == null )
+		return 0;
+ 
+		var dvr = '0';
+		suma = 0;
+		mul  = 2;
+ 
+		for (i= rut.length-1 ; i>= 0; i--)
+		{
+			suma = suma + rut.charAt(i) * mul;
+			if (mul == 7)
+				mul = 2;
+			else
+				mul++;
+		}
+ 
+		res = suma % 11;
+		if (res==1)
+			dvr = 'k';
+		else if (res==0)
+			dvr = '0';
+		else
+		{
+			dvi = 11-res;
+			dvr = dvi + "";
+		}
+ 
+		if ( dvr != dv.toLowerCase() )
+		{
+			alert('El Rut Ingreso es Invalido')
+			Objeto.focus()
+			return false;
+		}
+		Objeto.focus()
+		return true;
+	}
+} 
+
+$(document).on('click', '#grabar_cliente', function(){
+var rut =  document.getElementById('rut_in'); 
+var nombre  = document.getElementById('name_cli_in'); 
+var activo = document.getElementById('activo'); 
+var zona = document.getElementById('zona'); 
+
+alert(document.getElementById('name_cli_in'));
+if (Valida_Rut(rut)) 
+{
+  if(nombre != '' && zona != '')
+  {
+    $.ajax({
+                    url:'method/registroClientes.php',
+                    method:'POST',
+                    data:{
+                        rut:rut,
+                        nombre:nombre,
+                        activo:activo,
+                        zona:zona
+                    },
+                   success:function(data){
+                       alert(data);
+                   }
+                   
+                });
+  }
+  else 
+  {
+    alert('Favor ingresar todos los campos del formulario');
+  }
+
+}
+
+});
+
+
+</script>
 </body>
 </html>

@@ -456,7 +456,7 @@ error_reporting(0);
 
             $(document).on('click', '#openBtn', function(){
 
-              $('.modal-body').load('getContent.php?id=2',function(){    
+              $('.modal-body').load('method/getContent.php?id=1',function(){    
                 $('#myModal').modal('show'); 
       });
     });
