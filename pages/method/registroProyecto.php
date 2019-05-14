@@ -35,7 +35,6 @@
      if(mysqli_multi_query($conn, $query))
      {
       echo 'Proyecto Insertado Correctamente';
-      echo $query;
      }
      else
      {

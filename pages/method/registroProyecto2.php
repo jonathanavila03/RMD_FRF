@@ -5,7 +5,7 @@
     $obra  = $_POST['obra'];
     $cliente = $_POST['cliente'];
     $estado = $_POST['estado'];
-    $fecha_entrega = $_POST['fecha_entrega'];
+    $fecha_entrega = $_POST['fecha_entrega1'];
     $fecha_ingreso = $_POST['fecha_ingreso'];
     $fecha_primer = $_POST['fecha_primer'];
     $duracion = $_POST['duracion'];

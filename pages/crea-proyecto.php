@@ -702,7 +702,7 @@ $(document).on('click', '.remove', function(){
     var obra=$("#obra").val();
     var cliente=$("#cliente").val();
     var estado=$("#estado").val();
-    var fecha_entrega=$("#datepicker").val();
+    var fecha_entrega1=$("#datepicker").val();
     var fecha_ingreso=$("#fecha_ingreso").val();
     var fecha_primer=$("#datepicker3").val();
     var duracion=$("#duracion").val();
@@ -710,27 +710,6 @@ $(document).on('click', '.remove', function(){
     var vendedor='<?php echo $user ?>';
     var nombre_proyecto=$("#nombre_proyecto").val();
 
-    $.ajax({
-                    url:'method/registroProyecto2.php',
-                    method:'POST',
-                    data:{
-                        id_proyecto:id_proyecto,
-                        obra:obra,
-                        cliente:cliente,
-                        estado:estado,
-                        fecha_entrega:fecha_entrega,
-                        fecha_ingreso:fecha_ingreso,
-                        fecha_primer:fecha_primer,
-                        duracion:duracion,
-                        tipo:tipo,
-                        vendedor:vendedor,
-                        nombre_proyecto:nombre_proyecto
-                    },
-                   success:function(data){
-                       alert(data);
-                   }
-                   
-                });
                 var producto = [];
                 var m2 = [];
                 var costo = [];
@@ -738,6 +717,7 @@ $(document).on('click', '.remove', function(){
                 var fecha_entrega = [];
                 var fecha_devolucion = [];
                 var total = [];
+
                 $('.producto').each(function(){
                 producto.push($(this).find("select").val());
                 });
@@ -759,12 +739,38 @@ $(document).on('click', '.remove', function(){
                 $('.total').each(function(){
                 total.push($(this).text());
                 });
+
+    if(nombre_proyecto != ''  && duracion != '' && fecha_entrega1 != '' && fecha_primer != '')
+        {
+          if (producto != '' && m2 != '' && costo != '' && tiempo != ''){
+    $.ajax({
+
+
+                    url:'method/registroProyecto2.php',
+                    method:'POST',
+                    data:{
+                        id_proyecto:id_proyecto,
+                        obra:obra,
+                        cliente:cliente,
+                        estado:estado,
+                        fecha_entrega1:fecha_entrega1,
+                        fecha_ingreso:fecha_ingreso,
+                        fecha_primer:fecha_primer,
+                        duracion:duracion,
+                        tipo:tipo,
+                        vendedor:vendedor,
+                        nombre_proyecto:nombre_proyecto
+                    },
+                   success:function(data){
+                   }
+                   
+                });
+
                 $.ajax({
                 url:"method/registroProyecto.php",
                 method:"POST",
                 data:{id_proyecto:id_proyecto, producto:producto, m2:m2, costo:costo, tiempo:tiempo, fecha_entrega:fecha_entrega, fecha_devolucion:fecha_devolucion, total:total},
                 success:function(data){
-                  alert(data);
                   $("td[contentEditable='true']").text("");
                   for(var i=2; i<= count; i++)
                   {
@@ -772,8 +778,17 @@ $(document).on('click', '.remove', function(){
                   }
                 }
                 });
-
                 location.reload();
+                }
+                else {
+                  alert('Tienes que ingresar al menos un producto al proyecto');
+                }
+    }
+    else {
+      alert('Favor ingresar todos los campos');
+    }
+
+                
 
   });
 
